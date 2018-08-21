@@ -7,14 +7,9 @@ const menuItemSchema = new Schema({
     ingredients: [{
         type: String
     }],
-    subMenu: String,
     menuId: {
         type: Schema.Types.ObjectId,
         ref: 'Menu',
-    },
-    restaurantId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Restaurant',
     },
     price: Number,
     rating: String,

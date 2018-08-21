@@ -15,7 +15,7 @@ const restaurantSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
-    menu: [{
+    menus: [{
         type: Schema.Types.ObjectId,
         ref: 'Menu'
     }],
