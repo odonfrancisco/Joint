@@ -1,0 +1,22 @@
+<h3 *ngIf="newUser.username">Welcome {{newUser.username}}!</h3>
+
+
+<form #form="ngForm" (ngSubmit)="signup()">
+  <input type="text" name="username" placeholder="Username" [(ngModel)]="newUser.username">
+
+  <br>
+  
+  <input type="password" name="password" 
+    placeholder="Your Super Secret Password" 
+    [(ngModel)]="newUser.password"
+    required>
+
+  <br>
+  {{error}}
+  <br>
+  <br>
+
+  <input type="submit" value="Sign Up!">
+
+</form>
+

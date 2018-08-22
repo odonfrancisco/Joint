@@ -1,0 +1,18 @@
+<h1 *ngIf="user.username">Welcome {{user.username}}!</h1>
+
+<form (ngSubmit)="login()">
+  <input type="text" name="username" [(ngModel)]="user.username" placeholder="Username">
+
+  <br>
+
+  <input type="password" name="password" 
+    [(ngModel)]="user.password" placeholder="Your Super Secret Password" 
+    required>
+
+  <br>
+  {{error}}
+  <br>
+
+  <input type="submit" value="Log In">
+  
+</form>
