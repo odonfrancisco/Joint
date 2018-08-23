@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SessionService } from './services/session.service';
-import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,23 +7,13 @@ import { OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'client';
-  user: any;
+  title = 'Joint';
   
   constructor(
     public session: SessionService
   ){}
   
   ngOnInit(){
-    this.session.isLoggedIn()
-      .subscribe(
-        user => {
-          this.user = user;
-        },
-        err => {
-          console.error(err);
-        }
-      )
   }
   
 }

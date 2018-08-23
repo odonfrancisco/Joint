@@ -63,6 +63,7 @@ router.post('/login', (req, res, next) => {
           res.status(500).json({ message: 'Something went wrong in our servers, try again or kindly send us feedback' });
           return;
         }
+        console.log(req.session)
   
         res.status(200).json(req.user);
       });

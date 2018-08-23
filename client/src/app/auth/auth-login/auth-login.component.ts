@@ -27,7 +27,7 @@ export class AuthLoginComponent implements OnInit {
     this.session.login(this.user)
       .subscribe(
         user => {
-          this.router.navigate(['/'])
+          this.router.navigate(['home'])
         },
         err => {
           this.error = err;

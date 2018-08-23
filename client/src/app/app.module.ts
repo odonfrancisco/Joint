@@ -7,16 +7,19 @@ import { FormsModule } from '@angular/forms';
 import { routes } from './app.routes';
 
 import { SessionService } from './services/session.service';
+import { RestaurantService } from './services/restaurant/restaurant.service';
 
 import { AppComponent } from './app.component';
 import { AuthSignupComponent } from './auth/auth-signup/auth-signup.component';
 import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthSignupComponent,
-    AuthLoginComponent
+    AuthLoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,7 @@ import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
     FormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [ SessionService ],
+  providers: [ SessionService, RestaurantService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

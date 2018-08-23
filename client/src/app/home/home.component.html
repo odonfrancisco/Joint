@@ -1,0 +1,13 @@
+<div *ngIf="!user">
+  <a [routerLink]="['/signup']">Sign Up</a>
+  <a [routerLink]="['/login']">Login</a>
+</div>
+
+<div *ngIf="user">
+  <h2>Where will you be dining today?</h2>
+  
+  <input type="text" placeholder="Boutta SNACK!" [(ngModel)]="restaurantName">
+  <input type="button" value="Select" (click)="pickRestaurant()">
+</div>
+
+{{restaurants}}

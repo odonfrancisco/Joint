@@ -33,7 +33,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors())
+app.use(cors({
+  credentials: true,
+  origin: ["http://localhost:4200"]
+}))
 
 // Express View engine setup
 
@@ -56,6 +59,18 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+
+app.use(
+  (req, res, next) => {
+    res.header('Access-Control-Allow-Credential', true);
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+  } else {
+      next();
+  }
+  }
+)
 
 
 const index = require('./routes/index');

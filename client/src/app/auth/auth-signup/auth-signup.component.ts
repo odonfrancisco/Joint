@@ -21,13 +21,22 @@ export class AuthSignupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.session.isLoggedIn()
+      .subscribe(
+        user => {
+          return ;
+        },
+        err => {
+          console.error(err)
+        }
+      )
   }
 
   signup(){
     this.session.signup(this.newUser)
       .subscribe(
         user => {
-          this.router.navigate([''])
+          this.router.navigate(['/home'])
         },
         err => {
           console.error(err);
