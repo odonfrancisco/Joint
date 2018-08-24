@@ -8,7 +8,8 @@ const orderSchema = new Schema({
     },
     status: {
         enum: ['open', 'closed'],
-        required: true,
+        // This shouldn't have to be commented out...
+        // required: true,
     },
     customers: [{
         type: Schema.Types.ObjectId,
@@ -23,6 +24,11 @@ const orderSchema = new Schema({
             ref: 'MenuItem'
         },
         price: Number,
+        status: {
+            enum: ['open', 'cooked', 'sent', 'revise'],
+            // This shouldn't have to be commented out...
+            // required: true
+        },
         modifications: [{type: String}],
     }]
 })

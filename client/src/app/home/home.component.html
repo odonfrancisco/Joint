@@ -10,4 +10,7 @@
   <input type="button" value="Select" (click)="pickRestaurant()">
 </div>
 
-{{restaurants}}
+
+<div *ngFor="let restaurant of restaurants | filter:'name':restaurantName">
+  <a [routerLink]="['/restaurant', restaurant._id]">{{restaurant.name}}</a>
+</div>

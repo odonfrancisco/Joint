@@ -17,14 +17,21 @@ export class RestaurantService {
     return this.http.get(`${this.url}/restaurant/names`)
       .pipe(
         map(res => res.json())
-      )
-  }
+      );
+  };
 
   getRestaurant(id){
     return this.http.get(`${this.url}/restaurant/${id}`)
       .pipe(
         map(res => res.json())
-      )
-  }
+      );
+  };
+
+  createOrder(id, tableNum){
+    return this.http.post(`${this.url}/restaurant/${id}/order/create`, {tableNum})
+      .pipe(
+        map(res => res.json())
+      );
+  };
   
 }

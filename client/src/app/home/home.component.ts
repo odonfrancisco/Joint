@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private session: SessionService,
-    private restaurant: RestaurantService
+    private restaurant: RestaurantService,
   ) { }
 
   ngOnInit(){
