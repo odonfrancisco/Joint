@@ -27,8 +27,15 @@ export class RestaurantService {
       );
   };
 
-  createOrder(id, tableNum){
-    return this.http.post(`${this.url}/restaurant/${id}/order/create`, {tableNum})
+  createOrder(restaurantId, tableNum){
+    return this.http.post(`${this.url}/restaurant/${restaurantId}/order/create`, {tableNum}, {withCredentials: true})
+      .pipe(
+        map(res => res.json())
+      );
+  };
+
+  getMenus(restaurantId){
+    return this.http.get(`${this.url}/restaurant/${restaurantId}/menus`)
       .pipe(
         map(res => res.json())
       );

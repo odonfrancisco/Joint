@@ -1,0 +1,34 @@
+<div *ngIf="order">
+  <div *ngFor="let menu of menus">
+    <div *ngFor="let subMenu of menu.subMenus">
+        {{subMenu.category}}
+        <ul>
+          <li *ngFor="let item of subMenu.items">
+            <span (click)="showModal(item._id + '-modal')">{{item.name}}</span>
+            
+            <!-- The modal -->
+            <div [id]="item._id + '-modal'" class="modal">
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Some text in the Modal</p>
+              </div>
+            </div>
+            
+          </li>
+        </ul>
+    </div>
+  </div>
+</div>
+
+<button id="myBtn">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>

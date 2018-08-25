@@ -8,9 +8,8 @@
   
   <input type="text" placeholder="Boutta SNACK!" [(ngModel)]="restaurantName">
   <input type="button" value="Select" (click)="pickRestaurant()">
-</div>
 
-
-<div *ngFor="let restaurant of restaurants | filter:'name':restaurantName">
-  <a [routerLink]="['/restaurant', restaurant._id]">{{restaurant.name}}</a>
+  <div *ngFor="let restaurant of restaurants | filter:'name':restaurantName">
+    <a [routerLink]="['/restaurant', restaurant._id]">{{restaurant.name}}</a>
+  </div>
 </div>

@@ -15,7 +15,7 @@ const menuSchema = new Schema({
     restaurantId: {
         type: Schema.Types.ObjectId,
         ref: 'Restaurant',
-        // required: true,
+        required: true,
     },
     about: String,
     // Each category will have this schema. Still need to confidently define

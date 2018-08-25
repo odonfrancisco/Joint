@@ -10,6 +10,7 @@ const path         = require('path');
 const session      = require('express-session');
 const passport     = require('passport');
 const cors         = require('cors');
+const MongoStore   = require('connect-mongo')(session);
 
 mongoose.Promise = Promise;
 mongoose
@@ -50,7 +51,8 @@ app.use(require('node-sass-middleware')({
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
-  saveUninitialized: true,
+  saveUninitialized: true,  
+  store: new MongoStore( { mongooseConnection: mongoose.connection }),
   cookie: { maxAge: 2419200000}
 }));
 

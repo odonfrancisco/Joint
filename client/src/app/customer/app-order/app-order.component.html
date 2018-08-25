@@ -1,1 +1,8 @@
-<input type="text" [(ngModel)]="tableNumber" placeholder="Your Table Number">
+<div *ngIf="!order">
+    <form>
+        <input type="text" name="tableNumber" [(ngModel)]="tableNumber" placeholder="Your Table Number">
+        <input type="submit" value="Order Dat Thang" (click)="beginOrder(tableNumber)">
+    </form>
+</div>
+
+<app-app-menu [order]="order" [restaurantId]="restaurantId"></app-app-menu>
