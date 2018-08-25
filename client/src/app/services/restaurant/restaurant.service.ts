@@ -34,11 +34,5 @@ export class RestaurantService {
       );
   };
 
-  getMenus(restaurantId){
-    return this.http.get(`${this.url}/restaurant/${restaurantId}/menus`)
-      .pipe(
-        map(res => res.json())
-      );
-  };
   
 }

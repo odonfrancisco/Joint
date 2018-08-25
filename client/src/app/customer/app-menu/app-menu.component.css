@@ -35,3 +35,44 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.cursor-point:hover {
+    cursor: pointer;
+}
+
+.modal-item{
+    display: flex;
+    justify-content: center;
+}
+
+.left-column{
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+}
+
+.left-column img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.right-column{
+    margin-left: 50px;
+    float: left;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.comments {
+    margin-top: 20px;
+}
+
+.comments textarea{
+    display: none;
+    width: 100%;
+    height: 80px;
+}

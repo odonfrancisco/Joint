@@ -1,34 +1,62 @@
 <div *ngIf="order">
+
+  <div *ngIf="placeOrder">
+    <app-place-order [order]="order" [placeOrder]="placeOrder"></app-place-order>
+  </div>
+
+
   <div *ngFor="let menu of menus">
+    <h2>{{menu.name}}</h2>
     <div *ngFor="let subMenu of menu.subMenus">
         {{subMenu.category}}
         <ul>
           <li *ngFor="let item of subMenu.items">
-            <span (click)="showModal(item._id + '-modal')">{{item.name}}</span>
+            <span class="cursor-point" (click)="showModal(item._id + '-modal')">{{item.name}}</span>
             
             <!-- The modal -->
             <div [id]="item._id + '-modal'" class="modal">
               <div class="modal-content">
                 <span class="close">&times;</span>
-                <p>Some text in the Modal</p>
+
+                <div class="modal-item">
+                    <div class="left-column">
+                        <img [src]="item.picture">
+                    </div>
+
+                    <div class="right-column">
+                      <h3>{{item.name}} <span>${{item.price}}</span></h3>
+                      <p>{{item.description}}</p>
+                      Ingredients
+                      <ul>
+                        <li *ngFor="let ingredient of item.ingredients">
+                          {{ingredient}}
+                          <input type="button" value="Remove" (click)="removeIngredient(ingredient)">
+                        </li>
+                      </ul>
+
+                      <input type="button" value="Comment" (click)="showCommentForm(item._id + '-comments', $event)">
+                    </div>
+    
+                </div>
+                
+                <div class="comments" >
+                  <textarea [id]="item._id + '-comments'" placeholder="Separate comments with a comma"
+                    [(ngModel)]="comments"></textarea>
+                </div>
+
+                <div class="modal-buttons">
+                    <input type="button" value="Add" (click)="addItemToOrder(item._id + '-comments')">
+                    <input type="number" name="quantity" [(ngModel)]="quantity">
+                  <!-- <input type="button" value="Order"> -->
+                </div>
+
               </div>
             </div>
             
           </li>
+
         </ul>
+
     </div>
   </div>
-</div>
-
-<button id="myBtn">Open Modal</button>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-  </div>
-
 </div>

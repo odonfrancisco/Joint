@@ -26,10 +26,12 @@ const orderSchema = new Schema({
         price: Number,
         status: {
             type: String,
-            enum: ['open', 'cooked', 'sent', 'revise'],
+            enum: ['open', 'cooked', 'sent', 'revise', 'closed'],
             required: true
         },
+        ingredients: [{type: String}],
         modifications: [{type: String}],
+        comments: String,
     }]
 })
 

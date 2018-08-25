@@ -33,4 +33,14 @@ router.get('/items', (req, res, next) => {
         })
 })
 
+router.get('/:id/items', (req, res, next) => {
+    MenuItem.find({menuId: req.params.id})
+        .then(menuItems => {
+            res.status(200).json(menuItems);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
+
 module.exports = router;

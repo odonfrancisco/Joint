@@ -87,6 +87,9 @@ app.use('/menu', menuRoutes);
 const restaurantRoutes = require('./routes/restaurant');
 app.use('/restaurant', restaurantRoutes);
 
+const orderRoutes = require('./routes/order');
+app.use('/order', orderRoutes);
+
 app.use((req, res, next) => {
   res.sendfile(__dirname + '/public/index.html');
 })

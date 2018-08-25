@@ -1,0 +1,19 @@
+<input type="button" class="place-order-button" (click)="openPlaceOrder()" value="Place Order">
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" (click)="closePlaceOrder()">&times;</a>
+
+    <input [ngStyle]="wholeOrderStyle" type="button" value="Back To Place Order" (click)="toggleWholeOrder('placeOrderStyle', 'wholeOrderStyle')">
+    <input type="button" [ngStyle]="placeOrderStyle" value="Whole Order" (click)="toggleWholeOrder('wholeOrderStyle', 'placeOrderStyle')">
+    <app-whole-order [ngStyle]="wholeOrderStyle" [order]="order"></app-whole-order>
+
+    <div [ngStyle]="placeOrderStyle" class="place-order-item" *ngFor="let item of placeOrder">
+        <div>{{item.name}}</div>
+        <div><input type="number" [(ngModel)]="item.quantity"></div>
+        <div>${{item.price}}</div>
+    </div>
+
+
+    <input [ngStyle]="placeOrderStyle" type="button" value="Place Order" (click)="executeOrder()">
+    
+</div>
