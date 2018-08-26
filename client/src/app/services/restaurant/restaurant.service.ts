@@ -34,5 +34,11 @@ export class RestaurantService {
       );
   };
 
+  login(restaurantId, password){
+    return this.http.post(`${this.url}/restaurant/${restaurantId}/login`, {password: password})
+      .pipe(
+        map(res => res.json())
+      );
+  };
   
 }

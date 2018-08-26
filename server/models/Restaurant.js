@@ -15,6 +15,11 @@ const restaurantSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
+    accessKeys: {
+        admin: String,
+        kitchen: String,
+        server: String,
+    },
     menus: [{
         type: Schema.Types.ObjectId,
         ref: 'Menu'

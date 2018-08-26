@@ -79,16 +79,16 @@ const index = require('./routes/index');
 app.use('/', index);
 
 const authRoutes = require('./routes/authRoutes');
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 const menuRoutes = require('./routes/menu');
-app.use('/menu', menuRoutes);
+app.use('/api/menu', menuRoutes);
 
 const restaurantRoutes = require('./routes/restaurant');
-app.use('/restaurant', restaurantRoutes);
+app.use('/api/restaurant', restaurantRoutes);
 
 const orderRoutes = require('./routes/order');
-app.use('/order', orderRoutes);
+app.use('/api/order', orderRoutes);
 
 app.use((req, res, next) => {
   res.sendfile(__dirname + '/public/index.html');

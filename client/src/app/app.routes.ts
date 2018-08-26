@@ -4,6 +4,7 @@ import { AuthSignupComponent } from './auth/auth-signup/auth-signup.component';
 import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
 import { HomeComponent } from './home/home.component';
 import { AppOrderComponent } from './customer/app-order/app-order.component';
+import { RestaurantMainComponent } from './restaurant/restaurant-main/restaurant-main.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -12,6 +13,9 @@ export const routes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'restaurant',
         children: [
+            {path: '', component: RestaurantMainComponent},
+            {path: 'auth', component: RestaurantMainComponent },
+            {path: ':role/:id', component: RestaurantMainComponent},
             {path: ':id', component: AppOrderComponent }
         ]}
 ]

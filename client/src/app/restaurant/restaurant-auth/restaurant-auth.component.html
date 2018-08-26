@@ -1,0 +1,36 @@
+<input type="text" placeholder="Boutta SNACK!" [(ngModel)]="restaurantName">
+<input type="button" value="Select" (click)="pickRestaurant()">
+
+<div *ngFor="let restaurant of restaurants | filter:'name':restaurantName">
+  <!-- <span (click)="showRestaurantModal(restaurant._id)">{{restaurant.name}}</span> -->
+<!-- </div> -->
+
+
+<span class="cursor-point" (click)="showModal(restaurant._id + '-modal')">{{restaurant.name}}</span>
+
+
+<!-- The modal -->
+<div [id]="restaurant._id + '-modal'" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      
+      <div class="modal-item">
+          <div class="left-column">
+              <img src="https://www.bing.com/th?id=OIP.TsEhNRiLBDyzvBgfH2DnfQHaHa&w=237&h=160&c=7&o=5&dpr=1.1&pid=1.7">
+          </div>
+
+          <div class="right-column">
+            <h3>{{restaurant.name}}</h3>
+
+            <input type="password" name="restaurantPassword" [(ngModel)]="restaurantPassword">
+            <input type="button" value="Log in" (click)="restaurantAuthLogin(restaurant._id)">
+        
+            <div>
+              {{error}}
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </div>
+</div>

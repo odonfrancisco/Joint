@@ -6,11 +6,23 @@ const Restaurant = require('../models/Restaurant');
 const dbName = 'joint';
 mongoose.connect(`mongodb://localhost/${dbName}`);
 
-const restaurant = {
-    name: 'Krusty Krab',
-    cuisine: 'SeaPatties',
-    description: 'Where everyone under the sea gathers',
-}
+const restaurants = [
+    {
+        name: 'Colorful Patties',
+        cuisine: 'Colored SeaPatties',
+        description: 'Where everyone under the sea gathers to paint one another',
+    },
+    {
+        name: 'Chum Bucket',
+        cuisine: 'SeaWeed',
+        description: 'By supporting us, you\'re supporting a movement toward freeing the krabby patty formula',
+    },
+    {
+        name: 'RICE',
+        cuisine: 'Intelligent',
+        description: ' Want rice? Say no more'
+    }
+]
 
 const menu = {
     name: 'Main Menu',
@@ -77,12 +89,12 @@ const menuItems = [
 //     console.log(`Created 1 menu`)
 // })
 
-MenuItem.create(menuItems, (err) => {
-    if (err) { throw(err) }
-    console.log(`Created ${menuItems.length} menu Items`)
-})
+// MenuItem.create(menuItems, (err) => {
+//     if (err) { throw(err) }
+//     console.log(`Created ${menuItems.length} menu Items`)
+// })
 
-// Restaurant.create(restaurant, (err) => {
+// Restaurant.create(restaurants, (err) => {
 //     if (err) {throw(err)}
-//     console.log(`Created 1 restaurant`)
+//     console.log(`Created ${restaurants.length} restaurants`)
 // })

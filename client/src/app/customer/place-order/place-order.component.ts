@@ -41,14 +41,10 @@ export class PlaceOrderComponent implements OnInit {
   toggleWholeOrder(display, sneak){
     this[display] = null;
     this[sneak] = {display:'none'}
-    // const show = document.getElementById(display);
-    // const hide = document.getElementById(sneak);
-    // // show.style.display = 'null';
-    // hide.style.display = 'display:none;'
-    console.log('sneak: ', sneak);
-    console.log('this.sneak:', this[sneak]);
-    console.log('display: ', this[display];
-    console.log('display:', display)
+    // console.log('sneak: ', sneak);
+    // console.log('this.sneak:', this[sneak]);
+    // console.log('display: ', this[display];
+    // console.log('display:', display)
   }
 
 }

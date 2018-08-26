@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
         .subscribe(
           restaurants => {
             this.restaurants = restaurants;
-            console.log(restaurants)
+            // console.log(restaurants)
           }
         )
     // }

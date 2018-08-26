@@ -77,7 +77,7 @@ export class AppMenuComponent implements OnInit {
       this.comments = null;
     })
 
-    this.hideModal = (){
+    this.hideModal = () => {
       modal.style.display = 'none';
       this.item = null;
       this.quantity = 1;
