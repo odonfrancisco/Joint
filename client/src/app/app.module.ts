@@ -26,11 +26,10 @@ import { AppMenuComponent } from './customer/app-menu/app-menu.component';
 import { PlaceOrderComponent } from './customer/place-order/place-order.component';
 import { OrderService } from './services/order/order.service';
 import { WholeOrderComponent } from './customer/whole-order/whole-order.component';
-import { KitchenMainComponent } from './restaurantKitchen/kitchen-main/kitchen-main.component';
-import { KitchenAuthComponent } from './restaurantKitchen/kitchen-auth/kitchen-auth.component';
 import { KitchenAllOrdersComponent } from './restaurantKitchen/kitchen-all-orders/kitchen-all-orders.component';
 import { RestaurantAuthComponent } from './restaurant/restaurant-auth/restaurant-auth.component';
 import { RestaurantMainComponent } from './restaurant/restaurant-main/restaurant-main.component';
+import { AuthLogoutComponent } from './auth/auth-logout/auth-logout.component';
 
 @NgModule({
   declarations: [
@@ -43,11 +42,10 @@ import { RestaurantMainComponent } from './restaurant/restaurant-main/restaurant
     AppMenuComponent,
     PlaceOrderComponent,
     WholeOrderComponent,
-    KitchenMainComponent,
-    KitchenAuthComponent,
     KitchenAllOrdersComponent,
     RestaurantAuthComponent,
     RestaurantMainComponent,
+    AuthLogoutComponent,
   ],
   imports: [
     BrowserModule,

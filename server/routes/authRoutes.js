@@ -78,4 +78,9 @@ router.get('/loggedin', (req, res, next) => {
     res.status(403).json({message: 'Unauthorized'})
 })
 
+router.get('/logout', (req, res, next) => {
+  req.logout();
+  res.status(200).json({message: 'Success in logging out'});
+})
+
 module.exports = router;

@@ -107,25 +107,61 @@ router.get('/:id/menus', (req, res, next) => {
         });
 });
 
+router.get('/:id/:role/login', (req, res, next) => {
+    Restaurant.findById(req.params.id)
+        .then(restaurant => {
+            if (restaurant.accessKeys[req.params.role].users.indexOf(req.session.passport.user)>-1){
+                res.status(200).json({restaurant})
+            } else {
+                res.status(401).json({message: 'Invalid User'});
+            }
+
+            // const values = Object.values(restaurant.accessKeys);
+            // const keys = Object.keys(restaurant.accessKeys);
+            // console.log('values: ', values)
+            // console.log('Object.values:' , Object.values(restaurant.accessKeys))
+
+            // values.forEach((accessKey, index) => {
+            //     if (accessKey.users){
+            //         if (accessKey.users.indexOf(req.session.passport.user) > -1){
+            //             role = keys[index];
+            //         }
+    
+            //     }
+            // })
+
+            // if (role === false){
+            //     res.status(401).json({message: 'Invalid User'});
+            // } else {
+            //     res.status(200).json({restaurant, role})
+            // }
+            
+        })
+        .catch(err => {
+            res.status(500).json(err);
+            console.log(err)
+        })
+})
+
 router.post('/:id/login', (req, res, next) => {
     Restaurant.findById(req.params.id)
         .then(restaurant => {
-            console.log('restaurant: ', restaurant)
+            // console.log('restaurant: ', restaurant)
             const { password } = req.body;
             let role = false;
+            
             const values = Object.values(restaurant.accessKeys);
             const keys = Object.keys(restaurant.accessKeys);
             values.forEach((accessKey, index) => {
-                console.log('accessKey: ', accessKey)
-                console.log('key:', keys[index])
-                if (role === undefined ){
-                    role = false;
-
-                }
-                console.log(accessKey, password)
-                if (accessKey == password){
-                    console.log('equeal')
-                    role = keys[index];
+                // console.log('accessKey: ', accessKey)
+                // console.log('key:', keys[index])
+                // console.log(accessKey, password)
+                if (accessKey.key == password){
+                    if (accessKey.users.indexOf(req.session.passport.user)>-1){
+                        role = keys[index];
+                    } else {
+                        res.status(401).json({message: 'Unauthorized User'})
+                    }
                 }
             })
             if(role === false){
@@ -138,5 +174,6 @@ router.post('/:id/login', (req, res, next) => {
             res.status(500).json(err);
         })
 })
+
 
 module.exports = router;

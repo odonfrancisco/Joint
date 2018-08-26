@@ -58,4 +58,17 @@ export class SessionService {
       );
   };
 
+  logout(){
+    return this.http.get(`${this.url}/auth/logout`, {
+      withCredentials: true
+    })
+      .pipe(
+        map(res => {
+          this.currentUser = null;
+          this.tempUser = null;
+          return res.json()
+        })
+      )
+  }
+
 }

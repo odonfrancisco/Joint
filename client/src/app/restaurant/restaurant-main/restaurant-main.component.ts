@@ -8,21 +8,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RestaurantMainComponent implements OnInit {
   auth: boolean;
-  allOrders: boolean;
+  admin: boolean;
+  kitchen: boolean;
+  server: boolean;
 
   constructor(
     private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    this.auth = true;
-    this.allOrders = false;
     let param;
     this.route.params.subscribe(params => param = params)
     console.log(param)
     if (param.role){
-      this.allOrders = true;
+      this[param.role] = true;
       this.auth = false;
+    } else{
+      this.auth = true;
     }
+    
   }
 }

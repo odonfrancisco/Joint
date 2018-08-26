@@ -35,7 +35,14 @@ export class RestaurantService {
   };
 
   login(restaurantId, password){
-    return this.http.post(`${this.url}/restaurant/${restaurantId}/login`, {password: password})
+    return this.http.post(`${this.url}/restaurant/${restaurantId}/login`, {password: password}, {withCredentials: true})
+      .pipe(
+        map(res => res.json())
+      );
+  };
+
+  checkUser(restaurantId, role){
+    return this.http.get(`${this.url}/restaurant/${restaurantId}/${role}/login`, {withCredentials: true})
       .pipe(
         map(res => res.json())
       );

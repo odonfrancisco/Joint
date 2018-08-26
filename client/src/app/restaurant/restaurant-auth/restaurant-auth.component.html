@@ -22,8 +22,10 @@
           <div class="right-column">
             <h3>{{restaurant.name}}</h3>
 
-            <input type="password" name="restaurantPassword" [(ngModel)]="restaurantPassword">
-            <input type="button" value="Log in" (click)="restaurantAuthLogin(restaurant._id)">
+            <form>
+              <input type="password" name="restaurantPassword" [(ngModel)]="restaurantPassword">
+              <input type="submit" value="Log in" (click)="restaurantAuthLogin(restaurant._id)">
+            </form>
         
             <div>
               {{error}}

@@ -16,9 +16,27 @@ const restaurantSchema = new Schema({
         ref: 'User',
     },
     accessKeys: {
-        admin: String,
-        kitchen: String,
-        server: String,
+        admin: {
+            key: String,
+            users: [{
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }]
+        },
+        kitchen: {
+            key: String,
+            users: [{
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }],
+        },
+        server: {
+            key: String,
+            users: [{
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }]
+        },
     },
     menus: [{
         type: Schema.Types.ObjectId,
