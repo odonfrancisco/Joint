@@ -19,4 +19,12 @@ export class OrderService {
         map(res => res.json())
       )
   }
+
+  getRestaurantOrders(restaurantId){
+    return this.http.get(`${this.url}/order/restaurant/all/${restaurantId}`)
+      .pipe(
+        map(res => res.json())
+      );
+  };
+  
 }

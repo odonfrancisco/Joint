@@ -11,6 +11,7 @@ export class RestaurantMainComponent implements OnInit {
   admin: boolean;
   kitchen: boolean;
   server: boolean;
+  restaurantId: String;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,6 +21,9 @@ export class RestaurantMainComponent implements OnInit {
     let param;
     this.route.params.subscribe(params => param = params)
     console.log(param)
+    if(param.id){
+      this.restaurantId = param.id;
+    }
     if (param.role){
       this[param.role] = true;
       this.auth = false;

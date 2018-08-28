@@ -1,5 +1,5 @@
 <input type="text" placeholder="Boutta SNACK!" [(ngModel)]="restaurantName">
-<input type="button" value="Select" (click)="pickRestaurant()">
+
 
 <div *ngFor="let restaurant of restaurants | filter:'name':restaurantName">
   <!-- <span (click)="showRestaurantModal(restaurant._id)">{{restaurant.name}}</span> -->

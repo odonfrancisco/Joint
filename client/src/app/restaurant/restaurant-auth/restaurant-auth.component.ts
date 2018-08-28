@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class RestaurantAuthComponent implements OnInit {
   restaurants: Array<Object>;
   restaurantPassword: String;
+  restaurantName: String;
   error: String;
 
   constructor(

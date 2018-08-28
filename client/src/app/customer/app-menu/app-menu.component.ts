@@ -111,13 +111,14 @@ export class AppMenuComponent implements OnInit {
     this.item['modifications'].push(modification);
   }
 
-  addItemToOrder(commentsId){
+  addItemToOrder(){
     // Creates the new item which is what will be on the order
     
     // Couldn't destructure because of a compiling error
     // const {name, price, ingredients, modifications } = this.item;
     
-    let item;
+    let item = {};
+
 
     item['name'] = this.item['name'];
     item['price'] = this.item['price'];

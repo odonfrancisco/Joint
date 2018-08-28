@@ -21,4 +21,14 @@ router.post('/add/:id', (req, res, next) => {
         });
 });
 
+router.get('/restaurant/all/:restaurantId', (req, res, next) => {
+    Order.find({restaurantId: req.params.restaurantId})
+        .then(orders => {
+            res.status(200).json(orders)
+        })
+        .catch(err => {
+            res.status(500).json({message: 'Error within database'})
+        })
+})
+
 module.exports = router;
