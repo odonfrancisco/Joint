@@ -26,5 +26,22 @@ export class OrderService {
         map(res => res.json())
       );
   };
+
+  cookedOrder(orderId){
+    return this.http.get(`${this.url}/order/complete/${orderId}`)
+      .pipe(
+        map(res => res.json())
+      );
+  };
+
+  cookedItem(orderId, itemId, status){
+    return this.http.post(`${this.url}/order/item/status/${orderId}`, {
+      item: itemId,
+      status: status
+    })
+      .pipe(
+        map(res => res.json())
+      );
+  };
   
 }

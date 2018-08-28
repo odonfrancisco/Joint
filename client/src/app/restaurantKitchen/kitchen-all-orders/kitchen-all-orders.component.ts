@@ -21,4 +21,18 @@ export class KitchenAllOrdersComponent implements OnInit {
       })
   }
 
+  completeOrder(orderId){
+    this.order.cookedOrder(orderId)
+      .subscribe(order => {
+        this.ngOnInit();
+      });
+  };
+
+  cookItem(orderId, itemId){
+    this.order.cookedItem(orderId, itemId, 'cooked')
+      .subscribe(order => {
+        this.ngOnInit();
+      })
+  }
+
 }
