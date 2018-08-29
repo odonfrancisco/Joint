@@ -29,6 +29,7 @@ const orderSchema = new Schema({
             enum: ['open', 'cooked', 'sent', 'revise', 'closed'],
             required: true
         },
+        category: String,
         ingredients: [{type: String}],
         modifications: [{type: String}],
         comments: String,

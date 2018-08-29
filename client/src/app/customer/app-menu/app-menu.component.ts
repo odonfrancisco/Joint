@@ -124,6 +124,7 @@ export class AppMenuComponent implements OnInit {
     item['price'] = this.item['price'];
     item['ingredients'] = this.item['ingredients'];
     item['modifications'] = this.item['modifications'];
+    item['category'] = this.item['category'];
 
     item['quantity'] = this.quantity;
     item['itemId'] = this.item['_id'];

@@ -11,6 +11,7 @@ const menuItemSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Menu',
     },
+    category: String,
     price: Number,
     rating: String,
     orders: Number,
