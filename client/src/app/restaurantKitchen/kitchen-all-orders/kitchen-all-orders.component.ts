@@ -17,12 +17,18 @@ export class KitchenAllOrdersComponent implements OnInit {
   ngOnInit() {
     this.order.getRestaurantOrders(this.restaurantId)
       .subscribe(orders => {
-        this.orders = orders
+        // Returns only items that are open or in revision 
+          // even though I do that check on the backend
+            // is that too much??
+        this.orders = orders.map(order => {
+          order.items = order.items.filter(item => item.status === 'revise' || item.status === 'open')
+          return order
+        });
       })
   }
 
-  completeOrder(orderId){
-    this.order.cookedOrder(orderId)
+  cookOrder(orderId){
+    this.order.cookedOrder(orderId, 'cooked')
       .subscribe(order => {
         this.ngOnInit();
       });

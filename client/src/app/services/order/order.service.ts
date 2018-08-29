@@ -21,14 +21,16 @@ export class OrderService {
   }
 
   getRestaurantOrders(restaurantId){
-    return this.http.get(`${this.url}/order/restaurant/all/${restaurantId}`)
+    return this.http.get(`${this.url}/order/restaurant/kitchen/${restaurantId}`)
       .pipe(
         map(res => res.json())
       );
   };
 
-  cookedOrder(orderId){
-    return this.http.get(`${this.url}/order/complete/${orderId}`)
+  cookedOrder(orderId, status){
+    return this.http.post(`${this.url}/order/status/${orderId}`, {
+      status: status,
+    })
       .pipe(
         map(res => res.json())
       );
@@ -36,7 +38,7 @@ export class OrderService {
 
   cookedItem(orderId, itemId, status){
     return this.http.post(`${this.url}/order/item/status/${orderId}`, {
-      item: itemId,
+      itemId: itemId,
       status: status
     })
       .pipe(
