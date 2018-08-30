@@ -22,15 +22,33 @@ router.post('/add/:id', (req, res, next) => {
         });
 });
 
-router.get('/restaurant/kitchen/:restaurantId', (req, res, next) => {
-    Order.find({restaurantId: req.params.restaurantId, 'items.status': {$in: ['open', 'revise']}})
-        .then(orders => {
-            console.log(orders)
-            res.status(200).json(orders)
-        })
-        .catch(err => {
-            res.status(500).json({message: 'Error within database'})
-        })
+router.get('/restaurant/:role/:restaurantId', (req, res, next) => {
+    findKitchenOrders = () => {
+        Order.find({restaurantId: req.params.restaurantId, status: 'open', 'items.status': {$in: ['open', 'revise']}})
+            .then(orders => {
+                console.log(orders)
+                res.status(200).json(orders)
+            })
+            .catch(err => {
+                res.status(500).json({message: 'Error within database'})
+            });
+    };
+
+    findServerOrders = () => {
+        Order.find({restaurantId: req.params.restaurantId})
+            .then(orders => {
+                res.status(200).json(orders);
+            })
+            .catch(err => {
+                res.status(500).json({message: 'Error within databse'});
+            });
+    };
+
+    switch(req.params.role){
+        case 'kitchen': findKitchenOrders(); break;
+        case 'server': findServerOrders(); break;
+    }
+
 })
 
 router.post('/status/:orderId', (req, res, next) => {
