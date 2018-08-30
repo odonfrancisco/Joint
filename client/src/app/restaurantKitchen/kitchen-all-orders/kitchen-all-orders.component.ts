@@ -18,7 +18,7 @@ export class KitchenAllOrdersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.order.getRestaurantOrders(this.restaurantId)
+    this.order.getRestaurantOrders(this.restaurantId, 'kitchen')
       .subscribe(orders => {
         // Returns only items that are open or in revision 
           // even though I do that check on the backend

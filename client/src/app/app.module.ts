@@ -30,6 +30,7 @@ import { KitchenAllOrdersComponent } from './restaurantKitchen/kitchen-all-order
 import { RestaurantAuthComponent } from './restaurant/restaurant-auth/restaurant-auth.component';
 import { RestaurantMainComponent } from './restaurant/restaurant-main/restaurant-main.component';
 import { AuthLogoutComponent } from './auth/auth-logout/auth-logout.component';
+import { ServerAllOrdersComponent } from './restaurantServer/server-all-orders/server-all-orders.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { AuthLogoutComponent } from './auth/auth-logout/auth-logout.component';
     RestaurantAuthComponent,
     RestaurantMainComponent,
     AuthLogoutComponent,
+    ServerAllOrdersComponent,
   ],
   imports: [
     BrowserModule,
