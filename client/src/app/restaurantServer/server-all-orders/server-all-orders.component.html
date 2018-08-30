@@ -1,10 +1,19 @@
 
-<input type="button" value="Filter by category">
+<input type="button" value="Filter">
 <div class="categories">
   <form id="categoryForm">
     <div class="category" *ngFor="let categoryName of categories">
         <input type="submit" type="checkbox" name="category" (click)="filterCategory('category')" [value]="categoryName">
         {{categoryName}}
+    </div>
+  </form>
+</div>
+
+<div class="statuses">
+  <form id="statusForm">
+    <div class="status" *ngFor="let statusName of statuses">
+      <input type="submit" type="checkbox" name="status" (click)="filterStatus('status')" [value]="statusName">
+      {{statusName}}
     </div>
   </form>
 </div>
@@ -21,8 +30,8 @@
       <h3 class="table-num" (click)="cookOrder(order._id)">{{order.table}}</h3>
 
       <div *ngFor="let item of order.items" class="order-item" (click)="cookItem(order._id, item._id)">
-        <span *ngIf="filteredCategories.indexOf(item.category)>-1 || filteredStatus.indexOf(item.status)" >
-          {{item.quantity}} {{item.name}}
+        <span *ngIf="filteredCategories.indexOf(item.category)>-1 && filteredStatus.indexOf(item.status)>-1" >
+          {{item.quantity}} {{item.name}} {{item.status}}
           <ul>
             <li *ngIf="item.comments" class="comment">{{item.comments}}</li>
             <li class="modification" *ngFor="let mod of item.modifications">

@@ -22,15 +22,9 @@ export class ServerAllOrdersComponent implements OnInit {
   ngOnInit() {
     this.order.getRestaurantOrders(this.restaurantId, 'server')
     .subscribe(orders => {
-      // Returns only items that are open or in revision 
-        // even though I do that check on the backend
-          // is that too much??
-      // It also adds the categories for the filter so I guess it's 
-        // somewhat useful now
-
       this.orders = orders.map(order => {
         order.items = order.items.map(item => {
-          console.log('item.category:', item.category)
+          // console.log('item.category:', item.category)
 
           if(this.categories.indexOf(item.category) === -1 && item.category !== undefined){
             this.categories.push(item.category);
@@ -40,15 +34,56 @@ export class ServerAllOrdersComponent implements OnInit {
           };
           return item
         })
-        console.log(order)
+        // console.log(order)
         return order
       });
-      console.log(this.orders);
-      console.log(this.categories);
+      // console.log(this.orders);
+      // console.log(this.categories);
       this.filteredCategories = this.categories;
       this.filteredStatus = this.statuses;
+      console.log(this.statuses)
     })
 
   }
+
+  filterCategory(inputName){
+    const inputs = document.getElementsByName(inputName)
+
+    this.filteredCategories = Array.from(inputs).map(input => {
+      if (input['checked']){
+        return input['value'];
+      }
+    })
+    
+    this.filteredCategories = this.filteredCategories.filter(input => {
+      return input != undefined
+    })
+    
+    if(this.filteredCategories.length === 0){
+      this.filteredCategories = this.categories
+    }
+    console.log(this.filteredCategories)
+    console.log(this.orders)
+  }
+
+  filterStatus(statusName){
+    const inputs = document.getElementsByName(statusName);
+
+    this.filteredStatus = Array.from(inputs).map(input => {
+      if(input['checked']){
+        return input['value'];
+      };
+    })
+    
+    this.filteredStatus = this.filteredStatus.filter(status => {
+      return status != undefined
+    })
+
+    if(this.filteredStatus.length === 0){
+      this.filteredStatus = this.statuses;
+    }
+    
+  }
+
 
 }
