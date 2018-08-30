@@ -1,7 +1,0 @@
-{
-    "name": "joint",
-    "version": "0.0.0",
-    "engines": {
-        "node": "8.11.3"
-    }
-}
