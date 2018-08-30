@@ -141,4 +141,8 @@ export class AppMenuComponent implements OnInit {
     this.hideModal()
   }
 
+  executeOrder(){
+    this.placeOrder = [];
+  }
+
 }

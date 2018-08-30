@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { OrderService } from '../../services/order/order.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { OrderService } from '../../services/order/order.service';
 export class PlaceOrderComponent implements OnInit {
   @Input() placeOrder;
   @Input() order;
+  @Output() onExecute = new EventEmitter<string>();
+
   wholeOrderStyle: Object = {display: 'none'};
   placeOrderStyle: any;
 
@@ -32,6 +34,7 @@ export class PlaceOrderComponent implements OnInit {
     this.orderService.addToOrder(this.order._id, this.placeOrder)
       .subscribe(
         order => {
+          this.onExecute.emit();
           this.placeOrder = [];
           this.order = order;
         }

@@ -1,8 +1,8 @@
 <div *ngIf="order">
 
-  <div *ngIf="placeOrder">
-    <app-place-order [order]="order" [placeOrder]="placeOrder"></app-place-order>
-  </div>
+  <!-- <div *ngIf="placeOrder"> -->
+    <app-place-order [order]="order" [placeOrder]="placeOrder" (onExecute)="executeOrder()"></app-place-order>
+  <!-- </div> -->
 
 
   <div *ngFor="let menu of menus">
