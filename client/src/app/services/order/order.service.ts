@@ -36,7 +36,7 @@ export class OrderService {
       );
   };
 
-  cookedItem(orderId, itemId, status){
+  itemStatus(orderId, itemId, status){
     return this.http.post(`${this.url}/order/item/status/${orderId}`, {
       itemId: itemId,
       status: status
@@ -45,5 +45,6 @@ export class OrderService {
         map(res => res.json())
       );
   };
+  
   
 }

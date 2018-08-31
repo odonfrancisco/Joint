@@ -22,7 +22,7 @@
 
       <div *ngFor="let item of order.items" class="order-item" (click)="cookItem(order._id, item._id)">
         <span *ngIf="filteredCategories.indexOf(item.category)>-1" >
-          {{item.quantity}} {{item.name}}
+          {{item.quantity}} {{item.name}} {{item.status}}
           <ul>
             <li *ngIf="item.comments" class="comment">{{item.comments}}</li>
             <li class="modification" *ngFor="let mod of item.modifications">

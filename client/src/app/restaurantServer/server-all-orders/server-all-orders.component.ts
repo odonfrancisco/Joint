@@ -85,5 +85,31 @@ export class ServerAllOrdersComponent implements OnInit {
     
   }
 
+  getOrders(){
+    // Same thing that happens in ngOnInit except for the filtered categories and filtered statuses
+    this.order.getRestaurantOrders(this.restaurantId, 'server')
+    .subscribe(orders => {
+      this.orders = orders.map(order => {
+        order.items = order.items.map(item => {
+          if(this.categories.indexOf(item.category) === -1 && item.category !== undefined){
+            this.categories.push(item.category);
+          };
+          if(this.statuses.indexOf(item.status) === -1 && item.status !== undefined){
+            this.statuses.push(item.status);
+          };
+          return item
+        })
+        return order
+      });
+    });
+  };
+
+  itemStatus(orderId, itemId, status){
+    this.order.itemStatus(orderId, itemId, status)
+      .subscribe(() => {
+        this.getOrders();
+      })
+  }
+
 
 }

@@ -24,7 +24,7 @@ router.post('/add/:id', (req, res, next) => {
 
 router.get('/restaurant/:role/:restaurantId', (req, res, next) => {
     findKitchenOrders = () => {
-        Order.find({restaurantId: req.params.restaurantId, status: 'open', 'items.status': {$in: ['open', 'revise']}})
+        Order.find({restaurantId: req.params.restaurantId, status: 'open', items: {$elemMatch: {status: {$in: ['open', 'revise']}}}})
             .then(orders => {
                 console.log(orders)
                 res.status(200).json(orders)
