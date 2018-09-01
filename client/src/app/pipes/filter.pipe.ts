@@ -14,8 +14,16 @@ export class FilterPipe implements PipeTransform {
       return items;
     }
 
-    const myPattern = new RegExp(value, 'i');
-    return items.filter(it => it[field].match(myPattern));
+    if(typeof(value)==='string'){
+      const myPattern = new RegExp(value, 'i');
+      return items.filter(it => it[field].match(myPattern));  
+    } else {
+      return items.filter(it => {
+        // console.log(`indexOf ${it.table} ` + value.indexOf(it[field]))
+        return value.indexOf(it[field])>-1
+      });
+    }
+
   }
 
 }

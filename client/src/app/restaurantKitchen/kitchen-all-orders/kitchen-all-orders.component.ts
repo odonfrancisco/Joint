@@ -48,7 +48,7 @@ export class KitchenAllOrdersComponent implements OnInit {
   }
 
   cookOrder(orderId){
-    this.order.cookedOrder(orderId, 'cooked')
+    this.order.orderStatus(orderId, 'cooked')
       .subscribe(order => {
         this.ngOnInit();
       });

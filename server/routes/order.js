@@ -54,42 +54,26 @@ router.get('/restaurant/:role/:restaurantId', (req, res, next) => {
 router.post('/status/:orderId', (req, res, next) => {
     Order.findById(req.params.orderId)
         .then(order => {
-            
-            const allCooked = () => {
-                order.items = order.items.map(item => {
-                    item.status = 'cooked';
-                    return item;
-                });
-                order.save()
-                    .then(order => {
-                        res.status(200).json(order);
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        res.status(500).json(err);
-                    });    
-            };
-
-            const closeOrder = () => {
-                order.items = order.items.map(item => {
-                    item.status = 'closed';
-                    return item;
-                });
-                order.status = 'closed';
-                order.save()
-                    .then(order => {
-                        res.status(200).json(order);
-                    })
-                    .catch(err => {
-                        res.status(500).json(err);
-                    });
-            };
-
-            switch(req.body.status){
-                case 'cooked': allCooked(); break;
-                case 'closed': closeOrder(); break;
+            const {status } = req.body;
+            console.log('order: ', order)
+            order.items = order.items.map(item => {
+                item.status = status;
+                return item;
+            });
+            switch(status){
+                case 'open': order.status = status; break;
+                case 'closed': order.status = status; break;
+                default: break;
             }
 
+            order.save()
+                .then(order => {
+                    res.status(200).json(order);
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.status(500).json(err);
+                });
         })
         .catch(err => {
             console.log('error: ', err)

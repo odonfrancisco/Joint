@@ -27,7 +27,7 @@ export class OrderService {
       );
   };
 
-  cookedOrder(orderId, status){
+  orderStatus(orderId, status){
     return this.http.post(`${this.url}/order/status/${orderId}`, {
       status: status,
     })

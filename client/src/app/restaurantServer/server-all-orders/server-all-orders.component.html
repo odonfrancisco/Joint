@@ -1,6 +1,6 @@
-
+<input type="button" [value]="filteredOrder" (click)="orderFilter()">
 <input type="button" value="Filter">
-<div class="categories">
+<div class="categories">  
   <form id="categoryForm">
     <div class="category" *ngFor="let categoryName of categories">
         <input type="submit" type="checkbox" name="category" (click)="filterCategory('category')" [value]="categoryName">
@@ -26,11 +26,19 @@
 
 <div id="orders-container">
   
-  <div *ngFor="let order of orders" class="order">
-      <h3 class="table-num" (click)="orderStatus(order._id)">{{order.table}}</h3>
+  <div *ngFor="let order of orders | filter:'status':filteredOrders" class="order">
+    <div class="table-num">
+        <h3>{{order.table}}</h3>
+        <span class="ordertooltiptext">
+            <input type="button" value="Open" (click)="orderStatus(order._id, 'open')">
+            <input type="button" value="Cooked" (click)="orderStatus(order._id, 'cooked')">
+            <input type="button" value="Sent" (click)="orderStatus(order._id, 'sent')">
+            <input type="button" value="Revise" (click)="orderStatus(order._id, 'revise')">
+            <input type="button" value="Closed" (click)="orderStatus(order._id, 'closed')">
+        </span>
+    </div>
 
-      <div *ngFor="let item of order.items" class="order-item tooltip">
-        <span *ngIf="filteredCategories.indexOf(item.category)>-1 && filteredStatus.indexOf(item.status)>-1" >
+      <div *ngFor="let item of order.items | filter:'category':filteredCategories | filter:'status':filteredStatus" class="order-item tooltip">
           {{item.quantity}} {{item.name}} {{item.status}}
           <span class="tooltiptext">
             <input type="button" value="Open" (click)="itemStatus(order._id, item._id, 'open')">
@@ -44,8 +52,7 @@
               {{mod}}
             </li>
           </ul>     
-        </span>
-      </div>
+      </div>    
   </div>
 </div>
 

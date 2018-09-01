@@ -14,36 +14,19 @@ export class ServerAllOrdersComponent implements OnInit {
   filteredCategories: Array<String> = [];
   statuses: Array<String> = [];
   filteredStatus: Array<String> = [];
+  filteredOrders: Array<String>;
+  filteredOrder: String;
 
   constructor(
     private order: OrderService,
   ) { }
 
   ngOnInit() {
-    this.order.getRestaurantOrders(this.restaurantId, 'server')
-    .subscribe(orders => {
-      this.orders = orders.map(order => {
-        order.items = order.items.map(item => {
-          // console.log('item.category:', item.category)
-
-          if(this.categories.indexOf(item.category) === -1 && item.category !== undefined){
-            this.categories.push(item.category);
-          };
-          if(this.statuses.indexOf(item.status) === -1 && item.status !== undefined){
-            this.statuses.push(item.status);
-          };
-          return item
-        })
-        // console.log(order)
-        return order
-      });
-      // console.log(this.orders);
-      // console.log(this.categories);
-      this.filteredCategories = this.categories;
-      this.filteredStatus = this.statuses;
-      console.log(this.statuses)
-    })
-
+    this.getOrders();
+    this.filteredCategories = this.categories;
+    this.filteredStatus = this.statuses;
+    this.filteredOrders = ['open'];
+    this.filteredOrder = 'Viewing Open';
   }
 
   filterCategory(inputName){
@@ -86,10 +69,9 @@ export class ServerAllOrdersComponent implements OnInit {
   }
 
   getOrders(){
-    // Same thing that happens in ngOnInit except for the filtered categories and filtered statuses
     this.order.getRestaurantOrders(this.restaurantId, 'server')
     .subscribe(orders => {
-      this.orders = orders.map(order => {
+      this.orders = orders.filter(order => {
         order.items = order.items.map(item => {
           if(this.categories.indexOf(item.category) === -1 && item.category !== undefined){
             this.categories.push(item.category);
@@ -97,9 +79,9 @@ export class ServerAllOrdersComponent implements OnInit {
           if(this.statuses.indexOf(item.status) === -1 && item.status !== undefined){
             this.statuses.push(item.status);
           };
-          return item
+          return item;
         })
-        return order
+        return order.items.length > 0;
       });
     });
   };
@@ -109,6 +91,24 @@ export class ServerAllOrdersComponent implements OnInit {
       .subscribe(() => {
         this.getOrders();
       })
+  }
+
+  orderStatus(orderId, status){
+    this.order.orderStatus(orderId, status)
+      .subscribe(() => {
+        this.getOrders();
+      })
+  }
+
+  orderFilter(){
+    const value = this.filteredOrders[0];
+    const length = this.filteredOrders.length;
+    switch(true){
+      case length>1: this.filteredOrders = ['open']; this.filteredOrder = 'Viewing Open'; break;
+      case value === 'open': this.filteredOrders = ['closed']; this.filteredOrder = 'Viewing Closed'; break;
+      case value === 'closed': this.filteredOrders = ['open', 'closed']; this.filteredOrder = 'Open & Closed'; break;
+    }
+    // console.log(this.filteredOrders)
   }
 
 

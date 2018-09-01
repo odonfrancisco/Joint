@@ -31,6 +31,11 @@ import { RestaurantAuthComponent } from './restaurant/restaurant-auth/restaurant
 import { RestaurantMainComponent } from './restaurant/restaurant-main/restaurant-main.component';
 import { AuthLogoutComponent } from './auth/auth-logout/auth-logout.component';
 import { ServerAllOrdersComponent } from './restaurantServer/server-all-orders/server-all-orders.component';
+import { AdminMainComponent } from './restaurantAdmin/admin-main/admin-main.component';
+import { AdminRestaurantComponent } from './restaurantAdmin/admin-restaurant/admin-restaurant.component';
+import { AdminRestaurantMenusComponent } from './restaurantAdmin/admin-restaurant/admin-restaurant-menus/admin-restaurant-menus.component';
+import { AdminRestaurantMenuViewComponent } from './restaurantAdmin/admin-restaurant/admin-restaurant-menus/admin-restaurant-menu-view/admin-restaurant-menu-view.component';
+import { AdminRestaurantMenuCreateComponent } from './restaurantAdmin/admin-restaurant/admin-restaurant-menus/admin-restaurant-menu-create/admin-restaurant-menu-create.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +53,11 @@ import { ServerAllOrdersComponent } from './restaurantServer/server-all-orders/s
     RestaurantMainComponent,
     AuthLogoutComponent,
     ServerAllOrdersComponent,
+    AdminMainComponent,
+    AdminRestaurantComponent,
+    AdminRestaurantMenusComponent,
+    AdminRestaurantMenuViewComponent,
+    AdminRestaurantMenuCreateComponent,
   ],
   imports: [
     BrowserModule,
