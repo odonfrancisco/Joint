@@ -1,3 +1,11 @@
-<p>
-  admin-restaurant-menu-view works!
-</p>
+{{menu.name}}
+<ul>
+  <li *ngFor="let subMenu of menu.subMenus">
+    {{subMenu.category}}
+    <ul [ngClass]="subMenu.category">
+      <li *ngFor="let menuItem of subMenu.items">
+        {{menuItem.name}}
+      </li>
+    </ul>
+  </li>
+</ul>

@@ -13,12 +13,19 @@ export class MenuService {
     private http: Http,
   ) { }
 
+  getMenu(menuId){
+    return this.http.get(`${this.url}/menu/${menuId}`)
+      .pipe(
+        map(res => res.json())
+      );
+  };
+
   getMenuItems(menuId){
     return this.http.get(`${this.url}/menu/${menuId}/items`)
       .pipe(
         map(res => res.json())
-      )
-  }
+      );
+  };
   
   getMenus(restaurantId){
     return this.http.get(`${this.url}/restaurant/${restaurantId}/menus`)

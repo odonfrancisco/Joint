@@ -36,6 +36,7 @@ import { AdminRestaurantComponent } from './restaurantAdmin/admin-restaurant/adm
 import { AdminRestaurantMenusComponent } from './restaurantAdmin/admin-restaurant/admin-restaurant-menus/admin-restaurant-menus.component';
 import { AdminRestaurantMenuViewComponent } from './restaurantAdmin/admin-restaurant/admin-restaurant-menus/admin-restaurant-menu-view/admin-restaurant-menu-view.component';
 import { AdminRestaurantMenuCreateComponent } from './restaurantAdmin/admin-restaurant/admin-restaurant-menus/admin-restaurant-menu-create/admin-restaurant-menu-create.component';
+import { AdminRestaurantViewComponent } from './restaurantAdmin/admin-restaurant/admin-restaurant-view/admin-restaurant-view.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { AdminRestaurantMenuCreateComponent } from './restaurantAdmin/admin-rest
     AdminRestaurantMenusComponent,
     AdminRestaurantMenuViewComponent,
     AdminRestaurantMenuCreateComponent,
+    AdminRestaurantViewComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,8 @@
+
+{{restaurant.name}}<br>
+{{restaurant.cuisine}}<br>
+{{restaurant.description}}<br>
+
+<input type="button" value="View Menus" (click)="toggleMenu()">
+
+<app-admin-restaurant-menus *ngIf="menus" [menus]="restaurant.menus"></app-admin-restaurant-menus>

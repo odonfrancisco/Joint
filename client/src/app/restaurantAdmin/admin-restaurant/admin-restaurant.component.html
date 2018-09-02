@@ -1,3 +1,9 @@
-<p>
-  admin-restaurant works!
-</p>
+<div>
+  <input type="button" value="Kitchen View" (click)="toggleView('kitchen')">
+  <input type="button" value="Server View" (click)="toggleView('server')">
+  <input type="button" value="Customer View" (click)="toggleView('customer')">
+  <input type="button" value="Restaurant Overview" (click)="toggleView('restaurant')">
+  <input type="button" value="Admin Main">
+</div>
+
+<app-admin-restaurant-view [restaurantId]="restaurantId" *ngIf="restaurant"></app-admin-restaurant-view>
