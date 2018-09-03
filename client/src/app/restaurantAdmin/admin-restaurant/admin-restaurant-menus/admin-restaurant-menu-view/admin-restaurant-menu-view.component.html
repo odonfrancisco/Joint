@@ -1,11 +1,51 @@
 {{menu.name}}
 <ul>
   <li *ngFor="let subMenu of menu.subMenus">
-    {{subMenu.category}}
-    <ul [ngClass]="subMenu.category">
+    <span class="category" (click)="toggleCategoryView(subMenu.category)">{{subMenu.category}}</span>
+    <input type="button" value="Add" [ngClass]="visible[subMenu.category]" (click)="showModal('new-item-modal', subMenu.category)">
+    <ul [ngClass]="visible[subMenu.category]">
       <li *ngFor="let menuItem of subMenu.items">
         {{menuItem.name}}
       </li>
     </ul>
   </li>
 </ul>
+
+<!-- The New Item modal -->
+<div id="new-item-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+
+    <div class="modal-item">
+        <div class="left-column">
+            <h3>Category: {{newItem.category}}</h3>
+            <input type="text" [(ngModel)]="newItem.name" name="name" placeholder="Item Name">
+
+          <input type="text" [(ngModel)]="newItem.description" name="description" placeholder="{{newItem.name}} Description">
+          <label for="price">Price</label>
+          <input type="number" [(ngModel)]="newItem.price" name="price">
+          <input type="text" name="picture" [(ngModel)]="newItem.picture">
+        </div>
+
+        <div class="right-column">
+          <form (ngSubmit)="addIngredient()">
+            <input type="text" name="ingredient" [(ngModel)]="ingredient" placeholder="New Ingredient">
+          </form>
+
+          <ul>
+            <li *ngFor="let ingredient of newItem.ingredients">
+              {{ingredient}}
+            </li>
+          </ul>
+          
+        </div>
+
+    </div>
+    
+
+    <div class="modal-buttons">
+        <input type="button" value="Add" (click)="addNewItem()">
+    </div>
+
+  </div>
+</div>

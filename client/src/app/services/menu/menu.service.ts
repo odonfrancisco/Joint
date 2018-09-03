@@ -33,5 +33,12 @@ export class MenuService {
         map(res => res.json())
       );
   };
+
+  addMenuItem(menuId, newItem){
+    return this.http.post(`${this.url}/menu/${menuId}/items/new`, newItem)
+      .pipe(
+        map(res => res.json())
+      );
+  };
   
 }

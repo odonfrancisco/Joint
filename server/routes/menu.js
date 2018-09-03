@@ -43,4 +43,36 @@ router.get('/:id/items', (req, res, next) => {
         });
 });
 
+
+router.post('/:id/items/new', (req, res, next) => {
+    Menu.findById(req.params.id)
+        .then(menu => {
+            const {name, description, price, picture, ingredients, category} = req.body;
+
+            let subMenu = menu.subMenus.filter(subMenu => subMenu.category === category)[0];
+            
+            let newItem = new MenuItem({
+                name, description, price, picture, ingredients, category, 
+                menuId: req.params.id,
+            })
+            newItem.save()
+                .then(menuItem => {
+                    subMenu.items.unshift(menuItem._id);
+                    menu.save()
+                        .then(menu => {
+                            res.status(200).json(menu);
+                        })
+                        .catch(err => {
+                            res.status(500).json(err);
+                        })
+                })
+                .catch(err => {
+                    res.status(500).json(err);
+                })
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        })
+})
+
 module.exports = router;
