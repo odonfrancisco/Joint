@@ -4,7 +4,7 @@
     <span class="category" (click)="toggleCategoryView(subMenu.category)">{{subMenu.category}}</span>
     <input type="button" value="Add" [ngClass]="visible[subMenu.category]" (click)="showModal('new-item-modal', subMenu.category)">
     <ul [ngClass]="visible[subMenu.category]">
-      <li *ngFor="let menuItem of subMenu.items">
+      <li *ngFor="let menuItem of subMenu.items" (click)="showModal('view-item-modal', null, menuItem)">
         {{menuItem.name}}
       </li>
     </ul>
@@ -46,6 +46,61 @@
     <div class="modal-buttons">
         <input type="button" value="Add" (click)="addNewItem()">
     </div>
+
+  </div>
+</div>
+
+<div id="view-item-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+
+    <!-- <form #form="ngForm" (ngSubmit)="modifyItem(form)"> -->
+
+    <div class="modal-item">
+
+      
+        <div class="left-column">
+          <!-- <h3>Category: {{viewItem.category}}</h3> -->
+          <input type="text" [(ngModel)]="viewItem.name" name="name" placeholder="Item Name">
+
+          <!-- <p (click)="toggleView($event, viewItemDescriptionInput)">{{viewItem.description}}</p> -->
+          <input type="text" id="viewItemDescriptionInput" [(ngModel)]="viewItem.description" name="description" placeholder="{{viewItem.name}} Description">
+          <label for="price">Price</label>
+          <input type="number" [(ngModel)]="viewItem.price" name="price">
+          <img [src]="viewItem.picture">
+          <input type="text" name="picture" [(ngModel)]="viewItem.picture">
+        </div>
+
+        <div class="right-column">
+
+          <h3>Ingredients</h3>
+          <ul>
+            <span *ngFor="let ingredient of viewItem.ingredients; let i = index">
+                <input type="text" [(ngModel)]="viewItem.ingredients[i]">
+                <input type="button" value="Remove" (click)="removeViewItemIngredient(ingredient)">
+            </span>
+          </ul>
+
+          <form (ngSubmit)="addViewItemIngredient()">
+              <input type="text" name="ingredient" [(ngModel)]="ingredient" placeholder="New Ingredient">
+          </form>  
+
+          <ul>
+            <li *ngFor="let ingredient of viewItemIngredients">{{ingredient}} <input type="button" value="Remove" (click)="removeViewItemIngredient(ingredient)"></li>
+          </ul>
+          
+        </div>
+
+
+        
+    </div>
+    
+
+    <div class="modal-buttons">
+        <input type="button" value="Modify {{viewItem.name}}" (click)="modifyItem()">
+    </div>
+
+  <!-- </form> -->
 
   </div>
 </div>

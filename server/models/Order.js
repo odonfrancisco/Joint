@@ -23,6 +23,10 @@ const orderSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'MenuItem'
         },
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+        },
         price: Number,
         status: {
             type: String,

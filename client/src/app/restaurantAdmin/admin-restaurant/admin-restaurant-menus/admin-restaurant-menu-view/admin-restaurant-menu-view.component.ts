@@ -20,6 +20,8 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
   };
   ingredient: String;
   error: any;
+  viewItem = {};
+  viewItemIngredients = [];
 
   hideModal;
 
@@ -54,7 +56,7 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
     }
   }
   
-  showModal(element, category) {
+  showModal(element, category, item) {
     const modal = document.getElementById(element);
     // console.log(element)
     // console.log(modal)
@@ -63,15 +65,20 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
     modal.style.display = "block";
 
     // console.log(this.menuItems)
-    // console.log(element)
 
-    this.newItem['category'] = category;
-    this.newItem['name'] ='',
-    this.newItem['description'] = '',
-    this.newItem['ingredients'] = [],
-    this.newItem['price'] = 10,
-    this.newItem['picture'] = '',
+    if(category !== null){
+      this.newItem['category'] = category;
+      this.newItem['name'] ='';
+      this.newItem['description'] = '';
+      this.newItem['ingredients'] = [];
+      this.newItem['price'] = 10,
+      this.newItem['picture'] = '';
+      console.log('ye');
+    }
 
+    if(category === null && item){
+      this.viewItem = item;
+    }
     // Finds item user is viewing from menuItems 
       // and makes that item equal to the active item 
     // this.item = this.m enuItems.filter(e => e['_id'] === element.split('-')[0])[0]
@@ -116,5 +123,37 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
       );
   };
 
+  modifyItem(){
+    const pushNewIng = this.viewItem['ingredients'].push(...this.viewItemIngredients);
+
+    
+    Promise.all(pushNewIng)
+      .then(() => {
+        this.menuServ.modifyMenuItem(this.viewItem)
+          .subscribe(
+            () => {
+              this.getMenu(false);
+              this.hideModal();
+              this.viewItemIngredients = [];
+            }
+          )
+    console.log(this.viewItem)
+    })
+  }
+
+  addViewItemIngredient(){
+    this.viewItemIngredients.push(this.ingredient);
+    this.ingredient = '';
+  }
+
+  removeViewItemIngredient(ing){
+    const ingredientsIndex = this.viewItemIngredients.indexOf(ing);
+    const viewItemIndex = this.viewItem['ingredients'].indexOf(ing);
+    if(ingredientsIndex>-1){
+      this.viewItemIngredients.splice(ingredientsIndex, 1);
+    } else if (viewItemIndex > -1){
+      this.viewItem['ingredients'].splice(viewItemIndex, 1);
+    }
+  }
 
 }

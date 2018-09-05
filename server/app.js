@@ -90,6 +90,9 @@ app.use('/api/restaurant', restaurantRoutes);
 const orderRoutes = require('./routes/order');
 app.use('/api/order', orderRoutes);
 
+const menuItemRoutes = require('./routes/menuItem');
+app.use('/api/menuItem', menuItemRoutes);
+
 app.use((req, res, next) => {
   res.sendfile(__dirname + '/public/index.html');
 })
