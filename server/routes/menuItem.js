@@ -25,7 +25,18 @@ router.post('/:menuItemId/update', (req, res, next) => {
             .catch(err => {
                 console.log('Error in finding menu item: ', err)
                 res.status(500).json(err);
-            })
-})
+            });
+});
+
+router.get('/:menuItemId/remove', (req, res, next) => {
+    MenuItem.findByIdAndRemove(req.params.menuItemId)
+        .then(menuItem => {
+            console.log(menuItem);
+            res.status(200).json({message: `${menuItem.name} was successfully deleted`})
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
 
 module.exports = router;

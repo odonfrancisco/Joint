@@ -72,7 +72,31 @@ router.post('/:id/items/new', (req, res, next) => {
         })
         .catch(err => {
             res.status(500).json(err);
+        });
+});
+
+router.post('/:menuId/category', (req, res, next) => {
+    Menu.findById(req.params.menuId)
+        .then(menu => {
+            const newSubMenu = {
+                category: req.body.newCategory,
+                notes: '',
+                items: []
+            };
+            
+            menu.subMenus.push(newSubMenu);
+
+            menu.save()
+                .then(menu => {
+                    res.status(200).json(newSubMenu);
+                })
+                .catch(err => {
+                    res.status(500).json(err);
+                });
         })
-})
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
 
 module.exports = router;

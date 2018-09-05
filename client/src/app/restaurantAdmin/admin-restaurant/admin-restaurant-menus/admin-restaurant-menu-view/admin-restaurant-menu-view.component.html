@@ -2,14 +2,23 @@
 <ul>
   <li *ngFor="let subMenu of menu.subMenus">
     <span class="category" (click)="toggleCategoryView(subMenu.category)">{{subMenu.category}}</span>
+
     <input type="button" value="Add" [ngClass]="visible[subMenu.category]" (click)="showModal('new-item-modal', subMenu.category)">
+    <input type="button" value="Remove" [ngClass]="visible[subMenu.category]" (click)="removeCategory(subMenu.category)">
+    
     <ul [ngClass]="visible[subMenu.category]">
       <li *ngFor="let menuItem of subMenu.items" (click)="showModal('view-item-modal', null, menuItem)">
         {{menuItem.name}}
       </li>
     </ul>
   </li>
+  <input type="button" value="New Category" (click)="toggleView($event, newCategoryInput)">
+  <form (ngSubmit)="newCategory(newCategoryName)">
+      <input type="text" [(ngModel)]="newCategoryName" name="newCategoryName">
+  </form>
+
 </ul>
+
 
 <!-- The New Item modal -->
 <div id="new-item-modal" class="modal">
@@ -50,6 +59,8 @@
   </div>
 </div>
 
+
+<!-- The currently viewing item modal -->
 <div id="view-item-modal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
@@ -98,6 +109,7 @@
 
     <div class="modal-buttons">
         <input type="button" value="Modify {{viewItem.name}}" (click)="modifyItem()">
+        <input type="button" value="Remove {{viewItem.name}}" (click)="removeItem()">
     </div>
 
   <!-- </form> -->

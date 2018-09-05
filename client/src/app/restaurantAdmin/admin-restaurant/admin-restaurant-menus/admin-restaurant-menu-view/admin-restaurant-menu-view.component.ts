@@ -156,4 +156,27 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
     }
   }
 
+  removeItem(){
+    this.menuServ.removeMenuItem(this.viewItem['_id'])
+      .subscribe(
+        () => {
+          this.getMenu(false);
+          this.hideModal();
+          this.viewItemIngredients = [];
+        }
+      );
+  };
+
+  newCategory(category){
+    this.menuServ.newCategory(this.menuId, category)
+      .subscribe(
+        category => {
+          this.getMenu(false);
+          this['newCategoryName'] = ''
+          console.log(category)
+          this.visible[category.category].hide = true;
+        }
+      )
+  }
+
 }
