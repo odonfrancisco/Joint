@@ -15,6 +15,7 @@ const restaurantSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
+    picture: String,
     accessKeys: {
         admin: {
             key: String,

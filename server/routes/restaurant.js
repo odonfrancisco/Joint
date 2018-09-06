@@ -31,6 +31,29 @@ router.get('/names', (req, res, next) => {
         });
 });
 
+router.post('/new', (req, res, next) => {
+    const { name, description, picture, cuisine } = req.body.newRestaurant;
+    console.log(req.body);
+    console.log('work')
+
+    let { accessKeys } = req.body.newRestaurant;
+    accessKeys.admin.users.unshift(req.session.passport.user);
+
+    let newRestaurant = new Restaurant({
+        name, description, picture, cuisine, accessKeys
+    })
+
+    newRestaurant.save()
+        .then(newRestaurant => {
+            res.status(200).json(newRestaurant)
+        })
+        .catch(err => {
+            res.status(500).json(err, {message: 'Error in saving new Restaurant. Try again'})
+        })
+    
+    
+})
+
 router.get('/:id', (req, res, next) => {
     // Find particular restaurant and populate its menus + menuItems
     Restaurant.findById(req.params.id).populate('menus')

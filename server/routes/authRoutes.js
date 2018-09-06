@@ -6,8 +6,9 @@ const router = express.Router();
 const User = require('../models/User');
 
 router.post('/signup', (req, res, next) => {
-    const { username, password } = req.body;
+    const { username, password } = req.body.data;
   
+
     if (!username || !password) {
       res.status(400).json({ message: 'Please provide both a username and password' });
       return;
