@@ -61,5 +61,12 @@ export class MenuService {
         map(res => res.json())
       );
   };
+
+  removeCategory(menuId, category){
+    return this.http.post(`${this.url}/menu/${menuId}/category/remove`, {category})
+      .pipe(
+        map(res => res.json())
+      );
+  };
   
 }

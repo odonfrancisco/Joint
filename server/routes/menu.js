@@ -99,4 +99,25 @@ router.post('/:menuId/category', (req, res, next) => {
         });
 });
 
+router.post('/:menuId/category/remove', (req, res, next) => {
+    Menu.findById(req.params.menuId)
+        .then(menu => {
+            
+            let subMenu = menu.subMenus.filter(subMenu => subMenu.category === req.body.category)[0]
+            
+            menu.subMenus.splice(menu.subMenus.indexOf(subMenu), 1);
+
+            menu.save()
+                .then(menu => {
+                    res.status(200).json(menu);
+                })
+                .catch(err => {
+                    res.status(500).json(err);
+                })
+        })
+        .catch(err => {
+            res.status(500).json(err)
+        })
+})
+
 module.exports = router;

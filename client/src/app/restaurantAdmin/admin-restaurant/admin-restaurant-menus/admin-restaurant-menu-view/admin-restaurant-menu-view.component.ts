@@ -195,8 +195,8 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
   removeCategory(category){
     this.menuServ.removeCategory(this.menuId, category)
       .subscribe(
-        category => {
-          this.getMenu(false);
+        menu => {
+          this.menu = menu;
         }
       )
   }
