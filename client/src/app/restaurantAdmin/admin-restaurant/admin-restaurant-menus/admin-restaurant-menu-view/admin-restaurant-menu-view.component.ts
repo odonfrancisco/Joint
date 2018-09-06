@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MenuService } from '../../../../services/menu/menu.service';
+import { isPromiseAlike } from 'q';
 
 @Component({
   selector: 'app-admin-restaurant-menu-view',
@@ -9,7 +10,11 @@ import { MenuService } from '../../../../services/menu/menu.service';
 export class AdminRestaurantMenuViewComponent implements OnInit {
   @Input() menuId;
 
-  menu: Object;
+  menu = {
+    name: '',
+    subMenus: [],
+    
+  }
   visible: Object = {};
   newItem = {
     name:'',
@@ -17,11 +22,19 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
     ingredients: [],
     price: 10,
     picture: '',
+    category: '',
   };
   ingredient: String;
   error: any;
-  viewItem = {};
+  viewItem = {
+    name: '',
+    description: '',
+    price: '',
+    picture: '',
+    ingredients: []
+  };
   viewItemIngredients = [];
+  newCategoryName: String;
 
   hideModal;
 
@@ -127,8 +140,8 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
     const pushNewIng = this.viewItem['ingredients'].push(...this.viewItemIngredients);
 
     
-    Promise.all(pushNewIng)
-      .then(() => {
+    // Promise.all(pushNewIng)
+    //   .then(() => {
         this.menuServ.modifyMenuItem(this.viewItem)
           .subscribe(
             () => {
@@ -138,7 +151,7 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
             }
           )
     console.log(this.viewItem)
-    })
+    // })
   }
 
   addViewItemIngredient(){
@@ -175,6 +188,15 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
           this['newCategoryName'] = ''
           console.log(category)
           this.visible[category.category].hide = true;
+        }
+      )
+  }
+
+  removeCategory(category){
+    this.menuServ.removeCategory(this.menuId, category)
+      .subscribe(
+        category => {
+          this.getMenu(false);
         }
       )
   }

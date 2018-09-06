@@ -48,4 +48,13 @@ export class RestaurantService {
       );
   };
   
+  createNewRestaurant(newRestaurant){
+    return this.http.post(`${this.url}/restaurant/new`, {newRestaurant}, {
+      withCredentials: true
+    })
+      .pipe(
+        map(res => res.json())
+      );
+  };
+  
 }

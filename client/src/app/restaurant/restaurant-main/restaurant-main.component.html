@@ -1,5 +1,6 @@
 
 <app-restaurant-auth *ngIf="auth"></app-restaurant-auth>
+<app-restaurant-new *ngIf="auth"></app-restaurant-new>
 <app-kitchen-all-orders *ngIf="kitchen" [restaurantId]="restaurantId"></app-kitchen-all-orders>
 <app-server-all-orders *ngIf="server" [restaurantId]="restaurantId"></app-server-all-orders>
 <app-admin-main *ngIf="admin" [restaurantId]="restaurantId"></app-admin-main>

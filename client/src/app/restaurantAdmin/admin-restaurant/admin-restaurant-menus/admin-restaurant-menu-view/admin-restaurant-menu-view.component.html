@@ -12,7 +12,7 @@
       </li>
     </ul>
   </li>
-  <input type="button" value="New Category" (click)="toggleView($event, newCategoryInput)">
+  <!-- <input type="button" value="New Category" (click)="toggleView($event, newCategoryInput)"> -->
   <form (ngSubmit)="newCategory(newCategoryName)">
       <input type="text" [(ngModel)]="newCategoryName" name="newCategoryName">
   </form>
