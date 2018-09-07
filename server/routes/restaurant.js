@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Restaurant = require('../models/Restaurant');
 const Menu = require('../models/Menu');
 const Order = require('../models/Order');
@@ -124,6 +125,56 @@ router.get('/:id/menus', (req, res, next) => {
     Menu.find({restaurantId: req.params.id}).populate('subMenus.items')
         .then(menus => {
             res.status(200).json(menus);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
+
+router.post('/:restaurantId/menus/create', (req, res, next) => {
+    Restaurant.findById(req.params.restaurantId)
+        .then(restaurant => {
+            console.log(req.body)
+            console.log('req.body.menuName', req.body.menuName)
+            
+            let newMenu = new Menu({
+                name: req.body.menuName, 
+                about: '',
+                restaurantId: restaurant._id,
+                subMenus: []
+            })
+
+            newMenu.save()
+                .then(menu => {
+                    restaurant.menus.unshift(menu._id)
+                    restaurant.save()
+                        .then(restaurant => {
+                            res.status(200).json({message: 'Success!'})
+                        })
+                        .catch(err => {
+                            res.status(500).json(err)
+                        });
+                })
+                .catch(err => {
+                    res.status(500).json(err);
+                });
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
+
+router.post('/:restaurantId/menus/remove', (req, res, next) => {
+    Restaurant.findById(req.params.restaurantId)
+        .then(restaurant => {
+            Menu.findByIdAndRemove(req.body.menuId)
+                .then(menu => {
+                    restaurant.menus.splice(restaurant.menus.indexOf(menu._id), 1)
+                    res.status(200).json({message: 'Success!'})
+                })
+                .catch(err => {
+                    res.status(500).json(err);
+                })
         })
         .catch(err => {
             res.status(500).json(err);

@@ -68,5 +68,19 @@ export class MenuService {
         map(res => res.json())
       );
   };
+
+  createMenu(menuName, restaurantId){
+    return this.http.post(`${this.url}/restaurant/${restaurantId}/menus/create`, {menuName})
+      .pipe(
+        map(res => res.json())
+      );
+  };
+  
+  deleteMenu(menuId, restaurantId){
+    return this.http.post(`${this.url}/restaurant/${restaurantId}/menus/remove`, {menuId})
+      .pipe(
+        map(res => res.json())
+      );
+  };
   
 }

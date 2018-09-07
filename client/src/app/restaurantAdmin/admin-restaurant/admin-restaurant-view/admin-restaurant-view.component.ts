@@ -17,10 +17,7 @@ export class AdminRestaurantViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.restaurantServ.getRestaurant(this.restaurantId)
-      .subscribe(restaurant => {
-        this.restaurant = restaurant;
-      })
+    this.getMenus();
   }
 
   toggleMenu(){
@@ -29,6 +26,13 @@ export class AdminRestaurantViewComponent implements OnInit {
     } else {
       this.menus = false;
     }
+  }
+
+  getMenus(){
+    this.restaurantServ.getRestaurant(this.restaurantId)
+      .subscribe(restaurant => {
+        this.restaurant = restaurant;
+      })
   }
 
 }

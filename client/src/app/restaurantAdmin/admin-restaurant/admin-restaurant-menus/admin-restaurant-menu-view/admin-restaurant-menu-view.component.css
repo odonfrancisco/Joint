@@ -84,3 +84,7 @@
     width: 100%;
     height: 80px;
 }
+
+.menu-name:hover{
+    cursor: pointer;
+}

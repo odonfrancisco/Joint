@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MenuService } from '../../../../services/menu/menu.service';
 import { isPromiseAlike } from 'q';
 
@@ -9,11 +9,11 @@ import { isPromiseAlike } from 'q';
 })
 export class AdminRestaurantMenuViewComponent implements OnInit {
   @Input() menuId;
+  @Output() deleteMenu = new EventEmitter<any>();
 
   menu = {
     name: '',
     subMenus: [],
-    
   }
   visible: Object = {};
   newItem = {
@@ -58,6 +58,7 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
           this.menu['subMenus'].forEach(subMenu => {
             this.visible[subMenu.category] = {hide: true}
           })
+          this.visible[this.menu['name']] = {hide: true}
         }
       })
   }
@@ -152,12 +153,12 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
           )
     console.log(this.viewItem)
     // })
-  }
+  };
 
   addViewItemIngredient(){
     this.viewItemIngredients.push(this.ingredient);
     this.ingredient = '';
-  }
+  };
 
   removeViewItemIngredient(ing){
     const ingredientsIndex = this.viewItemIngredients.indexOf(ing);
@@ -166,8 +167,8 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
       this.viewItemIngredients.splice(ingredientsIndex, 1);
     } else if (viewItemIndex > -1){
       this.viewItem['ingredients'].splice(viewItemIndex, 1);
-    }
-  }
+    };
+  };
 
   removeItem(){
     this.menuServ.removeMenuItem(this.viewItem['_id'])
@@ -187,10 +188,11 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
           this.getMenu(false);
           this['newCategoryName'] = ''
           console.log(category)
-          this.visible[category.category].hide = true;
+          const categoryName = category.category
+          this.visible[categoryName].hide = true;
         }
-      )
-  }
+      );
+  };
 
   removeCategory(category){
     this.menuServ.removeCategory(this.menuId, category)
@@ -198,7 +200,11 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
         menu => {
           this.menu = menu;
         }
-      )
+      );
+  };
+
+  removeMenu(){
+    this.deleteMenu.emit({menuId: this.menuId})
   }
 
 }

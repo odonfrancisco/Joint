@@ -1,118 +1,124 @@
-{{menu.name}}
-<ul>
-  <li *ngFor="let subMenu of menu.subMenus">
-    <span class="category" (click)="toggleCategoryView(subMenu.category)">{{subMenu.category}}</span>
 
-    <input type="button" value="Add" [ngClass]="visible[subMenu.category]" (click)="showModal('new-item-modal', subMenu.category)">
-    <input type="button" value="Remove" [ngClass]="visible[subMenu.category]" (click)="removeCategory(subMenu.category)">
-    
-    <ul [ngClass]="visible[subMenu.category]">
-      <li *ngFor="let menuItem of subMenu.items" (click)="showModal('view-item-modal', null, menuItem)">
-        {{menuItem.name}}
-      </li>
-    </ul>
-  </li>
-  <!-- <input type="button" value="New Category" (click)="toggleView($event, newCategoryInput)"> -->
-  <form (ngSubmit)="newCategory(newCategoryName)">
-      <input type="text" [(ngModel)]="newCategoryName" name="newCategoryName">
-  </form>
+<span class="menu-name" (click)="toggleCategoryView(menu.name)">{{menu.name}}</span>
 
-</ul>
+<input [ngClass]="visible[menu.name]" type="button" value="Remove {{menu.name}}" (click)="removeMenu()">
 
+<div [ngClass]="visible[menu.name]">
+  <ul>
+    <li *ngFor="let subMenu of menu.subMenus">
+      <span class="category" (click)="toggleCategoryView(subMenu.category)">{{subMenu.category || 'Un-named'}}</span>
 
-<!-- The New Item modal -->
-<div id="new-item-modal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-
-    <div class="modal-item">
-        <div class="left-column">
-            <h3>Category: {{newItem.category}}</h3>
-            <input type="text" [(ngModel)]="newItem.name" name="name" placeholder="Item Name">
-
-          <input type="text" [(ngModel)]="newItem.description" name="description" placeholder="{{newItem.name}} Description">
-          <label for="price">Price</label>
-          <input type="number" [(ngModel)]="newItem.price" name="price">
-          <input type="text" name="picture" [(ngModel)]="newItem.picture">
-        </div>
-
-        <div class="right-column">
-          <form (ngSubmit)="addIngredient()">
-            <input type="text" name="ingredient" [(ngModel)]="ingredient" placeholder="New Ingredient">
-          </form>
-
-          <ul>
-            <li *ngFor="let ingredient of newItem.ingredients">
-              {{ingredient}}
-            </li>
-          </ul>
-          
-        </div>
-
-    </div>
-    
-
-    <div class="modal-buttons">
-        <input type="button" value="Add" (click)="addNewItem()">
-    </div>
-
-  </div>
-</div>
-
-
-<!-- The currently viewing item modal -->
-<div id="view-item-modal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-
-    <!-- <form #form="ngForm" (ngSubmit)="modifyItem(form)"> -->
-
-    <div class="modal-item">
-
+      <input type="button" value="Add" [ngClass]="visible[subMenu.category]" (click)="showModal('new-item-modal', subMenu.category)">
+      <input type="button" value="Remove" [ngClass]="visible[subMenu.category]" (click)="removeCategory(subMenu.category)">
       
-        <div class="left-column">
-          <!-- <h3>Category: {{viewItem.category}}</h3> -->
-          <input type="text" [(ngModel)]="viewItem.name" name="name" placeholder="Item Name">
+      <ul [ngClass]="visible[subMenu.category]">
+        <li *ngFor="let menuItem of subMenu.items" (click)="showModal('view-item-modal', null, menuItem)">
+          {{menuItem.name}}
+        </li>
+      </ul>
+    </li>
+    <!-- <input type="button" value="New Category" (click)="toggleView($event, newCategoryInput)"> -->
+    <form (ngSubmit)="newCategory(newCategoryName)">
+        <input type="text" [(ngModel)]="newCategoryName" name="newCategoryName" placeholder="New Category for {{menu.name}}">
+    </form>
 
-          <!-- <p (click)="toggleView($event, viewItemDescriptionInput)">{{viewItem.description}}</p> -->
-          <input type="text" id="viewItemDescriptionInput" [(ngModel)]="viewItem.description" name="description" placeholder="{{viewItem.name}} Description">
-          <label for="price">Price</label>
-          <input type="number" [(ngModel)]="viewItem.price" name="price">
-          <img [src]="viewItem.picture">
-          <input type="text" name="picture" [(ngModel)]="viewItem.picture">
-        </div>
+  </ul>
 
-        <div class="right-column">
 
-          <h3>Ingredients</h3>
-          <ul>
-            <span *ngFor="let ingredient of viewItem.ingredients; let i = index">
-                <input type="text" [(ngModel)]="viewItem.ingredients[i]">
-                <input type="button" value="Remove" (click)="removeViewItemIngredient(ingredient)">
-            </span>
-          </ul>
+  <!-- The New Item modal -->
+  <div id="new-item-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
 
-          <form (ngSubmit)="addViewItemIngredient()">
+      <div class="modal-item">
+          <div class="left-column">
+              <h3>Category: {{newItem.category}}</h3>
+              <input type="text" [(ngModel)]="newItem.name" name="name" placeholder="Item Name">
+
+            <input type="text" [(ngModel)]="newItem.description" name="description" placeholder="{{newItem.name}} Description">
+            <label for="price">Price</label>
+            <input type="number" [(ngModel)]="newItem.price" name="price">
+            <input type="text" name="picture" [(ngModel)]="newItem.picture">
+          </div>
+
+          <div class="right-column">
+            <form (ngSubmit)="addIngredient()">
               <input type="text" name="ingredient" [(ngModel)]="ingredient" placeholder="New Ingredient">
-          </form>  
+            </form>
 
-          <ul>
-            <li *ngFor="let ingredient of viewItemIngredients">{{ingredient}} <input type="button" value="Remove" (click)="removeViewItemIngredient(ingredient)"></li>
-          </ul>
-          
-        </div>
+            <ul>
+              <li *ngFor="let ingredient of newItem.ingredients">
+                {{ingredient}}
+              </li>
+            </ul>
+            
+          </div>
 
+      </div>
+      
+
+      <div class="modal-buttons">
+          <input type="button" value="Add" (click)="addNewItem()">
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- The currently viewing item modal -->
+  <div id="view-item-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+
+      <!-- <form #form="ngForm" (ngSubmit)="modifyItem(form)"> -->
+
+      <div class="modal-item">
 
         
+          <div class="left-column">
+            <!-- <h3>Category: {{viewItem.category}}</h3> -->
+            <input type="text" [(ngModel)]="viewItem.name" name="name" placeholder="Item Name">
+
+            <!-- <p (click)="toggleView($event, viewItemDescriptionInput)">{{viewItem.description}}</p> -->
+            <input type="text" id="viewItemDescriptionInput" [(ngModel)]="viewItem.description" name="description" placeholder="{{viewItem.name}} Description">
+            <label for="price">Price</label>
+            <input type="number" [(ngModel)]="viewItem.price" name="price">
+            <img [src]="viewItem.picture">
+            <input type="text" name="picture" [(ngModel)]="viewItem.picture">
+          </div>
+
+          <div class="right-column">
+
+            <h3>Ingredients</h3>
+            <ul>
+              <span *ngFor="let ingredient of viewItem.ingredients; let i = index">
+                  <input type="text" [(ngModel)]="viewItem.ingredients[i]">
+                  <input type="button" value="Remove" (click)="removeViewItemIngredient(ingredient)">
+              </span>
+            </ul>
+
+            <form (ngSubmit)="addViewItemIngredient()">
+                <input type="text" name="ingredient" [(ngModel)]="ingredient" placeholder="New Ingredient">
+            </form>  
+
+            <ul>
+              <li *ngFor="let ingredient of viewItemIngredients">{{ingredient}} <input type="button" value="Remove" (click)="removeViewItemIngredient(ingredient)"></li>
+            </ul>
+            
+          </div>
+
+
+          
+      </div>
+      
+
+      <div class="modal-buttons">
+          <input type="button" value="Modify {{viewItem.name}}" (click)="modifyItem()">
+          <input type="button" value="Remove {{viewItem.name}}" (click)="removeItem()">
+      </div>
+
+    <!-- </form> -->
+
     </div>
-    
-
-    <div class="modal-buttons">
-        <input type="button" value="Modify {{viewItem.name}}" (click)="modifyItem()">
-        <input type="button" value="Remove {{viewItem.name}}" (click)="removeItem()">
-    </div>
-
-  <!-- </form> -->
-
   </div>
 </div>

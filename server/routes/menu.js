@@ -100,7 +100,7 @@ router.post('/:menuId/category', (req, res, next) => {
 });
 
 router.post('/:menuId/category/remove', (req, res, next) => {
-    Menu.findById(req.params.menuId)
+    Menu.findById(req.params.menuId).populate('subMenus.items')
         .then(menu => {
             
             let subMenu = menu.subMenus.filter(subMenu => subMenu.category === req.body.category)[0]

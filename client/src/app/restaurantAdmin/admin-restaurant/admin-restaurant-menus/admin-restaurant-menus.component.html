@@ -1,5 +1,9 @@
-<!-- <input type="button" value="New Menu" (click)="toggleView('newMenu')"> -->
+<input *ngIf="!newMenu" type="button" value="New Menu" (click)="toggleView('newMenu')">
+
+<form *ngIf="newMenu" (ngSubmit)="createNewMenu()">
+    <input type="text" name="menuName" [(ngModel)]="newMenuName">
+</form>
 
 <div *ngFor="let menu of menus">
-  <app-admin-restaurant-menu-view [menuId]="menu._id"></app-admin-restaurant-menu-view>
+  <app-admin-restaurant-menu-view [menuId]="menu._id" (deleteMenu)="deleteMenu($event)"></app-admin-restaurant-menu-view>
 </div>
