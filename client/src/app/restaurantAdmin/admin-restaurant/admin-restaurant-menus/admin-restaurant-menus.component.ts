@@ -31,6 +31,7 @@ export class AdminRestaurantMenusComponent implements OnInit {
       .subscribe(
         () => {
           this.newMenu = false;
+          this.newMenuName = '';
           this.getMenus.emit()
         }
       );

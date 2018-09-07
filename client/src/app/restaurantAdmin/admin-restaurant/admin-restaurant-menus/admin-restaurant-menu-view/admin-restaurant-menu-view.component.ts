@@ -87,7 +87,6 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
       this.newItem['ingredients'] = [];
       this.newItem['price'] = 10,
       this.newItem['picture'] = '';
-      console.log('ye');
     }
 
     if(category === null && item){
@@ -108,7 +107,7 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
 
     this.hideModal = () => {
       modal.style.display = 'none';
-      }
+    }
     
 
     window.onclick = (event) => {
