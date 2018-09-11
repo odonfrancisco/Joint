@@ -1,7 +1,7 @@
 
-{{restaurant.name}}<br>
-{{restaurant.cuisine}}<br>
-{{restaurant.description}}<br>
+{{restaurant['name']}}<br>
+{{restaurant['cuisine']}}<br>
+{{restaurant['description']}}<br>
 
 
 <input *ngIf="!menus" type="button" value="View Menus" (click)="toggleMenu()">

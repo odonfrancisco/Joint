@@ -1,62 +1,66 @@
-<div *ngIf="order">
 
-  <!-- <div *ngIf="placeOrder"> -->
-    <app-place-order [order]="order" [placeOrder]="placeOrder" (onExecute)="executeOrder()"></app-place-order>
-  <!-- </div> -->
+<div class="restaurant-name">
+  <h1>{{restaurantName}}</h1>
+</div>
 
+<app-place-order [order]="order" [placeOrder]="placeOrder" (onExecute)="executeOrder()"></app-place-order>
 
-  <div *ngFor="let menu of menus">
-    <h2>{{menu.name}}</h2>
-    <div *ngFor="let subMenu of menu.subMenus">
-        {{subMenu.category}}
-        <ul>
-          <li *ngFor="let item of subMenu.items">
-            <span class="cursor-point" (click)="showModal(item._id + '-modal')">{{item.name}}</span>
-            
-            <!-- The modal -->
-            <div [id]="item._id + '-modal'" class="modal">
-              <div class="modal-content">
-                <span class="close">&times;</span>
+<div class="menu-container" *ngFor="let menu of menus">
+  <h2>{{menu.name}}</h2>
 
-                <div class="modal-item">
-                    <div class="left-column">
-                        <img [src]="item.picture">
-                    </div>
+  <div class="subMenu-names-container">
+    <div class="subMenu-name" *ngFor="let subMenu of menu.subMenus" [ngClass]="{'active': subMenu.category === currentCategory}">
+        <span class="cursor-point" (click)="toggleCategory(subMenu['category'])">{{subMenu.category}}</span>
+    </div>
+  </div>
 
-                    <div class="right-column">
-                      <h3>{{item.name}} <span>${{item.price}}</span></h3>
-                      <p>{{item.description}}</p>
-                      Ingredients
-                      <ul>
-                        <li *ngFor="let ingredient of item.ingredients">
-                          {{ingredient}}
-                          <input type="button" value="Remove" (click)="removeIngredient(ingredient)">
-                        </li>
-                      </ul>
+  <div class="subMenu-items-container" *ngFor="let subMenu of menu.subMenus | filter:'category':currentCategory">
+      <div class="cursor-point menu-item" *ngFor="let item of subMenu.items" (click)="showModal(item._id + '-modal')">
+        <img class="menu-item-pic" [src]="item.picture">
+        <h3>{{item.name}}</h3>
+        
+        <!-- The modal -->
+        <div [id]="item._id + '-modal'" class="modal">
+          <div class="modal-content">
+            <span class="close" (click)="hideModal()">&times;</span>
 
-                      <input type="button" value="Comment" (click)="showCommentForm(item._id + '-comments', $event)">
-                    </div>
-    
-                </div>
-                
-                <div class="comments" >
-                  <textarea [id]="item._id + '-comments'" placeholder="Separate comments with a comma"
-                    [(ngModel)]="comments"></textarea>
+            <div class="modal-item">
+              
+                <div class="left-column">
+                    <img [src]="item.picture">
                 </div>
 
-                <div class="modal-buttons">
-                    <input type="button" value="Add" (click)="addItemToOrder()">
-                    <input type="number" name="quantity" min="1" [(ngModel)]="quantity">
-                  <!-- <input type="button" value="Order"> -->
+                <div class="right-column">
+                  <h3>{{item.name}} <span>${{item.price}}</span></h3>
+                  <p>{{item.description}}</p>
+                  Ingredients
+                  <ul>
+                    <li *ngFor="let ingredient of item.ingredients">
+                      {{ingredient}}
+                      <input type="button" value="Remove" (click)="removeIngredient(ingredient)">
+                    </li>
+                  </ul>
+
+                  <input type="button" value="Comment" (click)="showCommentForm(item._id + '-comments', $event)">
                 </div>
 
-              </div>
             </div>
             
-          </li>
+            <div class="comments" >
+              <textarea [id]="item._id + '-comments'" placeholder="Separate comments with a comma"
+                [(ngModel)]="comments"></textarea>
+            </div>
 
-        </ul>
+            <div class="modal-buttons">
+                <input type="button" value="Add" (click)="addItemToOrder()">
+                <input type="number" name="quantity" min="1" [(ngModel)]="quantity">
+              <!-- <input type="button" value="Order"> -->
+            </div>
 
-    </div>
+          </div>
+        </div>
+        
+      </div>
+
   </div>
 </div>

@@ -21,6 +21,9 @@ export class AppMenuComponent implements OnInit {
   comments: String;
   // Quantity of particular item being added to placeOrder
   quantity: Number = 1;
+  currentCategory: String = 'Dessert'
+  visible: Object;
+  restaurantName: String;
 
   constructor(
     private restaurant: RestaurantService,
@@ -28,6 +31,14 @@ export class AppMenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.restaurant.getRestaurant(this.restaurantId)
+      .subscribe(
+        restaurant => {
+          this.restaurantName = restaurant['name']
+        }
+      )
+    
+    
     this.menu.getMenus(this.restaurantId)
       .subscribe(
         menus => {
@@ -43,6 +54,7 @@ export class AppMenuComponent implements OnInit {
               }
             )
           })
+          this.visible['itemModal'] = { hide: true };
 
         },
         err => {
@@ -68,31 +80,30 @@ export class AppMenuComponent implements OnInit {
       // and makes that item equal to the active item 
     this.item = this.menuItems.filter(e => e['_id'] === element.split('-')[0])[0]
     this.item['modifications'] = [];
-    // console.log(this.item)
-
-    span.addEventListener('click', () => {
-      modal.style.display = 'none';
-      this.item = null;
-      this.quantity = 1;
-      this.comments = null;
-    })
-
-    this.hideModal = () => {
-      modal.style.display = 'none';
-      this.item = null;
-      this.quantity = 1;
-      this.comments = null;    
-    }
-    
+    // console.log(this.item)    
 
     window.onclick = (event) => {
       if (event.target == modal) {
+        console.log('werd')
         modal.style.display = 'none';
         this.item = null;
         this.quantity = 1;
         this.comments = null;
       }
     }
+
+    this.hideModal = () => {
+      console.log('werk');
+      console.log('modal.style: ', modal.style)
+      modal.style.display = 'none';
+      console.log('modal after: ', modal)
+      console.log('modal.style: ', modal.style)
+
+      this.item = null;
+      this.quantity = 1;
+      this.comments = null;    
+    }
+
   }
 
   showCommentForm(commentsId, event){
@@ -143,6 +154,10 @@ export class AppMenuComponent implements OnInit {
 
   executeOrder(){
     this.placeOrder = [];
+  }
+
+  toggleCategory(category){
+    this.currentCategory = category
   }
 
 }

@@ -35,6 +35,7 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
   };
   viewItemIngredients = [];
   newCategoryName: String;
+  visibility: Object;
 
   hideModal;
 
@@ -43,7 +44,7 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getMenu('init');
+    this.getMenu('init');    
   }
 
   capitalize(str){
@@ -58,7 +59,9 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
           this.menu['subMenus'].forEach(subMenu => {
             this.visible[subMenu.category] = {hide: true}
           })
-          this.visible[this.menu['name']] = {hide: true}
+          this.visible[this.menu['name']] = {hide: true};
+          this.visible['newItem'] = {hide: true};
+          this.visible['viewItem'] = {hide: true};
         }
       })
   }
@@ -72,13 +75,9 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
   
   showModal(element, category, item) {
     const modal = document.getElementById(element);
-    // console.log(element)
-    // console.log(modal)
+
     const span = modal.children[0].children[0];
-
-    modal.style.display = "block";
-
-    // console.log(this.menuItems)
+    
 
     if(category !== null){
       this.newItem['category'] = category;
@@ -87,35 +86,28 @@ export class AdminRestaurantMenuViewComponent implements OnInit {
       this.newItem['ingredients'] = [];
       this.newItem['price'] = 10,
       this.newItem['picture'] = '';
+      this.visible['newItem'].hide = false;
     }
 
     if(category === null && item){
       this.viewItem = item;
+      this.visible['viewItem'].hide = false;
     }
-    // Finds item user is viewing from menuItems 
-      // and makes that item equal to the active item 
-    // this.item = this.m enuItems.filter(e => e['_id'] === element.split('-')[0])[0]
-    // this.item['modifications'] = [];
-    // console.log(this.item)
-
-    span.addEventListener('click', () => {
-      modal.style.display = 'none';
-      // this.item = null;
-      // this.quantity = 1;
-      // this.comments = null;
-    })
 
     this.hideModal = () => {
-      modal.style.display = 'none';
+      this.visible['viewItem'].hide = true;
+      this.visible['newItem'].hide = true;
     }
     
-
     window.onclick = (event) => {
+      console.log('event target: ', event.target);
+      console.log('modal: ', modal);
+      
       if (event.target == modal) {
-        modal.style.display = 'none';
-        // this.item = null;
-        // this.quantity = 1;
-        // this.comments = null;
+        console.log('werking')
+        // modal.style.display = 'none';
+        this.visible['viewItem'].hide = true;
+        this.visible['newItem'].hide = true;
       }
     }
   }

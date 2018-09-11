@@ -5,4 +5,4 @@
     </form>
 </div>
 
-<app-app-menu [order]="order" [restaurantId]="restaurantId"></app-app-menu>
+<app-app-menu *ngIf="order" [order]="order" [restaurantId]="restaurantId"></app-app-menu>
