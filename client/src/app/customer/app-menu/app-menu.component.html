@@ -1,9 +1,9 @@
 
-<div class="restaurant-name">
+<div class="nav">
   <h1>{{restaurantName}}</h1>
+  <app-place-order [order]="order" [placeOrder]="placeOrder" (onExecute)="executeOrder()"></app-place-order>
 </div>
 
-<app-place-order [order]="order" [placeOrder]="placeOrder" (onExecute)="executeOrder()"></app-place-order>
 
 <div class="menu-container" *ngFor="let menu of menus">
   <h2>{{menu.name}}</h2>

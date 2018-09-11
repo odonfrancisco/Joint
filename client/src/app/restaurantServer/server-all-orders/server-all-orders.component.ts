@@ -23,8 +23,12 @@ export class ServerAllOrdersComponent implements OnInit {
 
   ngOnInit() {
     this.getOrders();
-    this.filteredCategories = this.categories;
-    this.filteredStatus = this.statuses;
+
+    setInterval(() => {
+      this.getOrders()
+    }, 5000);
+
+    
     this.filteredOrders = ['open'];
     this.filteredOrder = 'Viewing Open';
   }
@@ -73,17 +77,31 @@ export class ServerAllOrdersComponent implements OnInit {
     .subscribe(orders => {
       this.orders = orders.filter(order => {
         order.items = order.items.map(item => {
-          if(this.categories.indexOf(item.category) === -1 && item.category !== undefined){
+          const categoriesIndex = this.categories.indexOf(item.category);
+          const statusesIndex = this.statuses.indexOf(item.status);
+          
+          if(categoriesIndex === -1 && item.category !== undefined){
             this.categories.push(item.category);
+          // } else if (categoriesIndex > -1 && item.category !== undefined){
+          //   this.categories.splice(categoriesIndex, 1);
           };
-          if(this.statuses.indexOf(item.status) === -1 && item.status !== undefined){
+          
+          
+          if(statusesIndex === -1 && item.status !== undefined){
             this.statuses.push(item.status);
+          // } else if (statusesIndex >-1 && item.status !== undefined){
+          //   this.statuses.splice(statusesIndex, 1);
           };
           return item;
         })
         return order.items.length > 0;
       });
     });
+
+    this.filteredCategories = this.categories;
+    this.filteredStatus = this.statuses;
+
+  
   };
 
   itemStatus(orderId, itemId, status){

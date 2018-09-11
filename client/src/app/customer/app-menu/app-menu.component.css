@@ -1,4 +1,8 @@
-.restaurant-name{
+html{
+    color: #468499;
+}
+
+.nav{
     display: flex;
     justify-content: center;
 }
@@ -14,7 +18,7 @@
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
 }
 
 /* Modal Content/Box */
@@ -86,10 +90,17 @@
 .subMenu-names-container{
     display: flex;
     justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+.subMenu-name{
+    padding: 3px;
+    border-bottom: 2px solid #468499;
+    border-radius: 1px;
 }
 
 .subMenu-items-container{
-    background-image: linear-gradient(90deg, deeppink 5%, #212126, deeppink);
+    background-color: #ccc;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -111,5 +122,15 @@
 }
 
 .active{
-    background: red;
+    color: #ff7373;
+    border-color: #ff7373;
+}
+
+app-place-order{
+    background-color: pink;
+    right: 0;
+    position: absolute;
+    margin-top: 1.34em;
+    margin-right: 50px;
+    z-index: 1;
 }
