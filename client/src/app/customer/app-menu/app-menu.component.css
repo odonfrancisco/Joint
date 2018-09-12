@@ -32,7 +32,7 @@ html{
 
 /* The Close Button */
 .close {
-    color: #aaa;
+    color: #ff7373;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -100,7 +100,7 @@ html{
 }
 
 .subMenu-items-container{
-    background-color: #ccc;
+    /* background-color: #ccc; */
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -127,10 +127,51 @@ html{
 }
 
 app-place-order{
-    background-color: pink;
-    right: 0;
     position: absolute;
-    margin-top: 1.34em;
-    margin-right: 50px;
-    z-index: 1;
+    right: 12vw;
+}
+
+.hide{
+    display: none;
+}
+
+.button{
+    background: transparent;
+    border-radius: 1px;
+    font-size: 1em;
+    color: #ff7373;
+    border: 1px #ff7373 solid;
+}
+
+.comment-section{
+    border: 2px #ff7373 solid;
+    background: transparent;
+    color: #468499;
+}
+
+.add-btn{
+    border: 1px #ff7373 solid;
+    height: 40px;
+    background: #ff7373;
+    width: 100px;
+    color: #ccc;
+    font-size: 1.5em;
+    border-radius: 5px;
+}
+
+.quantity{
+    width: 35px;
+    color: #ff7373;
+    font-size: 1.5em;
+    background: transparent;
+    border: 1px #ff7373 solid;
+    padding-left: 15px;
+    margin-left: -5px;
+}
+
+.ingredients-list{
+    display: flex;
+    justify-content: space-between;
+    min-width: 200px;
+    max-width: 300px;
 }

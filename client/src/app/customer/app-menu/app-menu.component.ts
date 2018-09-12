@@ -14,16 +14,19 @@ export class AppMenuComponent implements OnInit {
   // All the menu items of the menu
   menuItems: Array<Object> = [];
   // Current item viewing
-  item: Object;
+  viewItem: Object = {
+    ingredients: [],
+  };
   // Order to be placed
   placeOrder: Array<Object>;
   // Comments about the item being added to placeOrder
   comments: String;
   // Quantity of particular item being added to placeOrder
   quantity: Number = 1;
-  currentCategory: String = 'Dessert'
+  currentCategory: String;
   visible: Object;
   restaurantName: String;
+  currentMenu: String;
 
   constructor(
     private restaurant: RestaurantService,
@@ -45,7 +48,7 @@ export class AppMenuComponent implements OnInit {
           console.log(menus[0].subMenus[0].items[0])
           this.menus = menus
 
-          menus.forEach(e => {
+          menus.forEach((e, i) => {
             this.menu.getMenuItems(e._id).subscribe(
               menuItems => {
                 menuItems.forEach(item => {
@@ -53,6 +56,13 @@ export class AppMenuComponent implements OnInit {
                 })
               }
             )
+            if(i === 0){
+              this.currentCategory = e['subMenus'][0]['category'];
+              if(menus.length>1){
+                this.currentMenu = e['name'];
+              }
+            }
+            
           })
           this.visible['itemModal'] = { hide: true };
 
@@ -78,15 +88,15 @@ export class AppMenuComponent implements OnInit {
 
     // Finds item user is viewing from menuItems 
       // and makes that item equal to the active item 
-    this.item = this.menuItems.filter(e => e['_id'] === element.split('-')[0])[0]
-    this.item['modifications'] = [];
-    // console.log(this.item)    
+    this.viewItem = this.menuItems.filter(e => e['_id'] === element.split('-')[0])[0]
+    this.viewItem['modifications'] = [];
+    // console.log(this.viewItem)    
 
     window.onclick = (event) => {
       if (event.target == modal) {
         console.log('werd')
         modal.style.display = 'none';
-        this.item = null;
+        this.viewItem = {ingredients: []};
         this.quantity = 1;
         this.comments = null;
       }
@@ -99,7 +109,7 @@ export class AppMenuComponent implements OnInit {
       console.log('modal after: ', modal)
       console.log('modal.style: ', modal.style)
 
-      this.item = null;
+      this.viewItem = {ingredients: []};
       this.quantity = 1;
       this.comments = null;    
     }
@@ -115,30 +125,37 @@ export class AppMenuComponent implements OnInit {
   }
 
   removeIngredient(ingredient){
-    const index = this.item['ingredients'].indexOf(ingredient);
-    this.item['ingredients'].splice(index, 1);
+    const index = this.viewItem['ingredients'].indexOf(ingredient);
+    this.viewItem['ingredients'].splice(index, 1);
     const modification = `No ${ingredient}`;
 
-    this.item['modifications'].push(modification);
+    this.viewItem['modifications'].push(modification);
+  }
+
+  addIngredient(ingredient){
+    this.viewItem['ingredients'].push(ingredient);
+
+    const modification = `No ${ingredient}`;
+    this.viewItem['modifications'].splice(this.viewItem['modifications'].indexOf(modification), 1)    
   }
 
   addItemToOrder(){
     // Creates the new item which is what will be on the order
     
     // Couldn't destructure because of a compiling error
-    // const {name, price, ingredients, modifications } = this.item;
+    // const {name, price, ingredients, modifications } = this.viewItem;
     
     let item = {};
 
 
-    item['name'] = this.item['name'];
-    item['price'] = this.item['price'];
-    item['ingredients'] = this.item['ingredients'];
-    item['modifications'] = this.item['modifications'];
-    item['category'] = this.item['category'];
+    item['name'] = this.viewItem['name'];
+    item['price'] = this.viewItem['price'];
+    item['ingredients'] = this.viewItem['ingredients'];
+    item['modifications'] = this.viewItem['modifications'];
+    item['category'] = this.viewItem['category'];
 
     item['quantity'] = this.quantity;
-    item['itemId'] = this.item['_id'];
+    item['itemId'] = this.viewItem['_id'];
     item['status'] = 'open';
     item['comments'] = this.comments;
 
@@ -158,6 +175,16 @@ export class AppMenuComponent implements OnInit {
 
   toggleCategory(category){
     this.currentCategory = category
+  }
+
+  toggleMenu(){
+    const menus = this.menus.map(e => e['name'])
+    const index = menus.indexOf(this.currentMenu);
+    if(index === menus.length-1){
+      this.currentMenu = menus[0];
+    } else {
+      this.currentMenu = menus[index+1];
+    }
   }
 
 }

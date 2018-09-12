@@ -5,8 +5,11 @@
 </div>
 
 
-<div class="menu-container" *ngFor="let menu of menus">
-  <h2>{{menu.name}}</h2>
+<div class="menu-container" *ngFor="let menu of menus" [ngClass]="{'hide': menu.name !== currentMenu}">
+  <div *ngIf="currentMenu">
+    <h2 (click)="toggleMenu()">{{menu.name}}</h2>
+  </div>
+  <h2 *ngElse >{{menu.name}}</h2>
 
   <div class="subMenu-names-container">
     <div class="subMenu-name" *ngFor="let subMenu of menu.subMenus" [ngClass]="{'active': subMenu.category === currentCategory}">
@@ -35,26 +38,27 @@
                   <p>{{item.description}}</p>
                   Ingredients
                   <ul>
-                    <li *ngFor="let ingredient of item.ingredients">
+                    <li class="ingredients-list" *ngFor="let ingredient of item.ingredients">
                       {{ingredient}}
-                      <input type="button" value="Remove" (click)="removeIngredient(ingredient)">
+                      <input [ngClass]="{'hide': viewItem.ingredients.indexOf(ingredient)===-1}" type="button" class="button" value="Remove" (click)="removeIngredient(ingredient)">
+                      <input [ngClass]="{'hide': !(viewItem.ingredients.indexOf(ingredient)===-1)}" type="button" class="button" value="Add" (click)="addIngredient(ingredient)">
                     </li>
+
                   </ul>
 
-                  <input type="button" value="Comment" (click)="showCommentForm(item._id + '-comments', $event)">
+                  <input type="button" value="Comment" class="button" (click)="showCommentForm(item._id + '-comments', $event)">
                 </div>
 
             </div>
             
             <div class="comments" >
               <textarea [id]="item._id + '-comments'" placeholder="Separate comments with a comma"
-                [(ngModel)]="comments"></textarea>
+                [(ngModel)]="comments" class="comment-section"></textarea>
             </div>
 
             <div class="modal-buttons">
-                <input type="button" value="Add" (click)="addItemToOrder()">
-                <input type="number" name="quantity" min="1" [(ngModel)]="quantity">
-              <!-- <input type="button" value="Order"> -->
+                <input type="button" class="add-btn" value="Add" (click)="addItemToOrder()">
+                <input type="number" class="quantity" name="quantity" min="1" [(ngModel)]="quantity">
             </div>
 
           </div>

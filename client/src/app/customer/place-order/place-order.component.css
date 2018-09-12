@@ -28,7 +28,21 @@
     .sidenav a {font-size: 18px;}
 }
 
+.place-order-button{
+    height: 45px;
+    width: 100px;
+    background: transparent;
+    border-radius: 1px;
+    font-size: .45em;
+    color: #ff7373;
+    border: 2px #ff7373 solid;
+}
+
 .place-order-item{
     display: flex;
     justify-content: space-around;
+}
+
+*{
+    color: #468499;
 }
