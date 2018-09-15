@@ -8,7 +8,7 @@ router.post('/add/:id', (req, res, next) => {
 
     Order.findById(req.params.id)
         .then(order => {
-            order.items.push(...req.body)
+            order.items.unshift(...req.body)
             order.save()
                 .then(order => {
                     res.status(200).json(order);

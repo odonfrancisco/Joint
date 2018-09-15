@@ -3,7 +3,10 @@
   <input type="button" value="Server View" (click)="toggleView('server')">
   <input type="button" value="Customer View" (click)="toggleView('customer')">
   <input type="button" value="Restaurant Overview" (click)="toggleView('restaurant')">
-  <input type="button" value="Admin Main">
+  <!-- <input type="button" value="Admin Main"> -->
 </div>
 
+<app-kitchen-all-orders [restaurantId]="restaurantId" *ngIf="kitchen"></app-kitchen-all-orders>
+<app-server-all-orders [restaurantId]="restaurantId" *ngIf="server"></app-server-all-orders>
+<app-app-order *ngIf="customer"></app-app-order>
 <app-admin-restaurant-view [restaurantId]="restaurantId" *ngIf="restaurant"></app-admin-restaurant-view>

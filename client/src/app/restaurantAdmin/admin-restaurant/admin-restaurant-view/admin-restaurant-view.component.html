@@ -3,6 +3,15 @@
 {{restaurant['cuisine']}}<br>
 {{restaurant['description']}}<br>
 
+<form (ngSubmit)="addKitchenAdmin(kitchenAdminUser)">
+    <input type="text" name="kitchenAdmin" [(ngModel)]="kitchenAdminUser">
+</form>
+<div [ngClass]="{'hide': !kitchenAdminUser}">
+    <div *ngFor="let user of allUsers | filter:'username':kitchenAdminUser" (click)="addKitchenAdmin(user.username)">
+        {{user.username}}
+    </div>
+</div>
+
 
 <input *ngIf="!menus" type="button" value="View Menus" (click)="toggleMenu()">
 

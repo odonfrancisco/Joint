@@ -56,5 +56,12 @@ export class RestaurantService {
         map(res => res.json())
       );
   };
+
+  addKitchenAdmin(restaurantId, userId){
+    return this.http.get(`${this.url}/restaurant/${restaurantId}/kitchenUser/${userId}`)
+      .pipe(
+        map(res => res.json())
+      )
+  }
   
 }

@@ -71,4 +71,11 @@ export class SessionService {
       )
   }
 
+  getAllUsers(){
+    return this.http.get(`${this.url}/auth/allUsers`)
+      .pipe(
+        map(res => res.json())
+      )
+  }
+
 }

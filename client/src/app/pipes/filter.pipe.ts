@@ -14,8 +14,8 @@ export class FilterPipe implements PipeTransform {
       return items;
     }
 
-    console.log('typeof value: ', value)
-    console.log('actual typeof: ', typeof(value))
+    // console.log('typeof value: ', value)
+    // console.log('actual typeof: ', typeof(value))
 
     if(typeof(value)==='string'){
       const myPattern = new RegExp(value, 'i');

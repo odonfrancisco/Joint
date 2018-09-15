@@ -84,7 +84,7 @@ router.post('/:menuId/category', (req, res, next) => {
                 items: []
             };
             
-            menu.subMenus.push(newSubMenu);
+            menu.subMenus.unshift(newSubMenu);
 
             menu.save()
                 .then(menu => {

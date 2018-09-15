@@ -24,7 +24,9 @@ export class AppMenuComponent implements OnInit {
   // Quantity of particular item being added to placeOrder
   quantity: Number = 1;
   currentCategory: String;
-  visible: Object;
+  visible: Object = {
+    itemModal: {},
+  };
   restaurantName: String;
   currentMenu: String;
 
@@ -58,9 +60,7 @@ export class AppMenuComponent implements OnInit {
             )
             if(i === 0){
               this.currentCategory = e['subMenus'][0]['category'];
-              if(menus.length>1){
                 this.currentMenu = e['name'];
-              }
             }
             
           })
@@ -71,6 +71,11 @@ export class AppMenuComponent implements OnInit {
           console.error(err)
         }
       )
+
+      console.log('currentMenu', this.currentMenu);
+      console.log('currentCategory', this.currentCategory);
+      console.log('this.visible: ', this.visible);
+    
   }
 
   hideModal;

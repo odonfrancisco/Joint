@@ -13,9 +13,9 @@
 
           <form>
             <input type="text" placeholder="Restaurant Name" name="name" [(ngModel)]="newRestaurant['name']">
-            <input type="text" placeholder="Description" name="description" [(ngModel)]="newRestaurant.description">
-            <input type="text" placeholder="Cuisine" name="cuisine" [(ngModel)]="newRestaurant.cuisine">
-            <input type="text" placeholder="Picture" name="picture" [(ngModel)]="newRestaurant.picture">
+            <input type="text" placeholder="Description" name="description" [(ngModel)]="newRestaurant['description']">
+            <input type="text" placeholder="Cuisine" name="cuisine" [(ngModel)]="newRestaurant['cuisine']">
+            <input type="text" placeholder="Picture" name="picture" [(ngModel)]="newRestaurant['picture']">
             <input type="submit" value="Create New Restaurant" (click)="createNewRestaurant()">
           </form>
       

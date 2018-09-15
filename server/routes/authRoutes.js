@@ -1,6 +1,6 @@
 const express = require('express');
 const passport = require('passport');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const router = express.Router();
 const User = require('../models/User');
@@ -83,5 +83,15 @@ router.get('/logout', (req, res, next) => {
   req.logout();
   res.status(200).json({message: 'Success in logging out'});
 })
+
+router.get('/allUsers', (req, res, next) => {
+  User.find({}, {username:1})
+    .then(users => {
+      res.status(200).json({users})
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
 
 module.exports = router;
